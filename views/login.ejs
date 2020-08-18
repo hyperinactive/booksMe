@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar-reg-log') %>
+
+<div class="container mt-5">
+  <h1>Login</h1>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+
+          <form action="/login" method="POST">
+            
+            <div class="row">
+              <div class="col-3">
+                <a><img class="img" src="images/logged.jpg" alt="already logged"></a>
+              </div>
+              <div class="col-sm-7">
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" name="username" autofocus>
+                </div>
+                
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password">
+                </div>
+                      
+                <button type="submit" class="btn btn-dark">Login</button>
+                <a href="/register" class="btn btn-light">Don't have an account?</a>      
+              </div>
+            </div>  
+          </form>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<%- include('partials/footer') %>

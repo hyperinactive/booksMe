@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar-not-member') %>
+
+
+<div id="wrapper">
+  <main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3">User reviews</h1>
+        <p>This is where we give writers a firm kick in the nuts for being a bunch of talentless bums! (~This gives meaning to my life~)</p>        
+      </div>
+    </div>
+  
+    <hr>
+  
+    <div class="container">
+      <div class="row">
+  
+      <% reviews.forEach(review=>{ %>
+        <div class="col-md-4">
+          <h2><%=review.book.title%></h2>
+          <p><%=review.rev%></p>
+          <p><%=review.user%></p>
+        </div>
+      <% }); %>
+      </div>
+  
+      <hr>
+  
+    </div> <!-- /container -->
+  
+  </main>
+  
+  <footer class="container">
+    <p>&copy; Books:<i>ME</i>></p>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script></body>
+  
+</div>
+
+
+<%- include('partials/footer') %>

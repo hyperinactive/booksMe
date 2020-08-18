@@ -1,0 +1,44 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar-not-member') %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/search.js"></script>
+<script type="text/javascript" src="scripts/filter.js"></script>
+
+<div class="greetings">
+    <h2>Hello, <i>guest</i></h2>
+</div>
+
+<div class="row">
+    <div class="search-bar col-11">
+        <div class="float-right">
+            <input class="search-input" type="text" placeholder="Search" autofocus>
+        <button class="btn btn-dark search-btn">Search</button>
+        </div>     
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div id="filter-btn-title" class="col-2 book filter-btn">
+            <p class="btn btn-dark">title</p>
+        </div>
+        <div id="filter-btn-author" class="col-2 book filter-btn">
+            <p class="btn btn-dark">author</p>
+        </div>
+        <div id="filter-btn-isbn" class="col-1 book filter-btn">
+            <p class="btn btn-dark">isbn</p>
+        </div>
+        <div class="col-2 book">description</div>
+        <div class="col-2 book">publisher</div>
+        <div class="col-1 book">year of publication</div>
+        <div class="col-2 book">cover</div>
+    </div>
+
+    <hr>
+
+    <%- include('partials/render-books') %>
+
+</div>
+
+<%- include('partials/footer') %>
