@@ -3,7 +3,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/search.js"></script>
-<script type="text/javascript" src="script/filter.js"></script>
+<script type="text/javascript" src="scripts/filter.js"></script>
 
 <div class="greetings">
     <h3>Hello, <i><%=userName%></i></h3>
@@ -23,9 +23,15 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-2 book">title</div>
-        <div class="col-2 book">author</div>
-        <div class="col-1 book">isbn</div>
+        <div id="filter-btn-title" class="col-2 book filter-btn">
+            <p class="btn btn-dark">title</p>
+        </div>
+        <div id="filter-btn-author" class="col-2 book filter-btn">
+            <p class="btn btn-dark">author</p>
+        </div>
+        <div id="filter-btn-isbn" class="col-1 book filter-btn">
+            <p class="btn btn-dark">isbn</p>
+        </div>
         <div class="col-2 book">description</div>
         <div class="col-2 book">publisher</div>
         <div class="col-1 book">year of publication</div>
@@ -43,14 +49,14 @@
             <label for="author">author</label>
             <input type="text" class="form-control" name="author">
             <label for="isbn">isbn</label>
-            <input type="text" class="form-control" name="isbn">
+            <input type="number" class="form-control" name="isbn">
             <label for="description">description</label>
             <input type="text" class="form-control" name="description">
             <label for="publisher">publisher</label>
             <input type="text" class="form-control" name="publisher">
             <label for="yearOfPublication">year of publication</label>
-            <input type="text" class="form-control" name="yearOfPublication">
-
+            <input type="number" class="form-control" name="yearOfPublication">
+            <hr>
             
             <button class="btn btn-dark" type="submit">Add a book</button>
             <a href="/logout" class="btn btn-light">Logout</a>

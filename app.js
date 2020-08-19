@@ -186,7 +186,7 @@ app.route("/reviews4members")
         });
 
     } else {
-        throw new Error("Invalid user");
+        res.send("Invalid user");
     }
 });
 
@@ -257,7 +257,6 @@ app.route("/books4members")
             } else {
                 if (foundAuthor) {
                     book.author = foundAuthor;
-                    console.log(book.author);
     
                     Book.findOne({ title: book.title, author: book.author, isbn: book.isbn, publisher: book.publisher }, (err, foundBook) => {
                         if (err) {
