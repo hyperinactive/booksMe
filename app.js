@@ -105,7 +105,8 @@ app.get("/register", (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("already-logged");
   } else {
-    res.render("register");
+    let logRegFlag = true;
+    res.render("register", { isLogReg: logRegFlag });
   }
 });
 
@@ -113,7 +114,8 @@ app.get("/login", (req, res) => {
   if (req.isAuthenticated()) {
     res.redirect("already-logged");
   } else {
-    res.render("login");
+    let logRegFlag = true;
+    res.render("login", { isLogReg: logRegFlag });
   }
 });
 
@@ -121,52 +123,51 @@ app.get("/already-logged", (req, res) => {
   if (req.isUnauthenticated()) {
     res.redirect("register");
   } else {
-    res.render("already-logged", { username: req.user.username });
-  }
-});
-
-app.get("/reviews", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.redirect("/reviews4members");
-  } else {
-    Review.find({}, (err, foundReviews) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("reviews", { reviews: foundReviews });
-      }
+    let logRegFlag = true;
+    res.render("already-logged", {
+      username: req.user.username,
+      isLogReg: logRegFlag,
     });
   }
 });
 
 app
-  .route("/reviews4members")
+  .route("/reviews")
 
   .get((req, res) => {
+    let authFlag = false;
+    let username = "Guest";
     if (req.isAuthenticated()) {
-      Book.find({}, (err, foundBooks) => {
-        if (err) {
-          console.log(err);
-        } else {
-          Review.find({}, (err, foundReviews) => {
-            if (err) {
-              console.log(err);
-            } else {
-              res.render("reviews4members", {
-                reviews: foundReviews,
-                books: foundBooks,
-              });
-            }
-          });
-        }
-      });
-    } else {
-      res.redirect("login");
+      authFlag = true;
+      username = req.user.username;
     }
+    Book.find({}, (err, foundBooks) => {
+      if (err) {
+        console.log(err);
+      } else {
+        Review.find({}, (err, foundReviews) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.render("reviews", {
+              reviews: foundReviews,
+              books: foundBooks,
+              isLogReg: false,
+              isAuthenticated: authFlag,
+            });
+          }
+        });
+      }
+    });
   })
 
   .post((req, res) => {
+    let authFlag = false;
+    let username = "Guest";
     if (req.isAuthenticated()) {
+      authFlag = true;
+      username = req.user.username;
+
       const review = new Review({
         rev: req.body.review,
         grade: req.body.rating,
@@ -182,14 +183,21 @@ app
           if (foundBook) {
             review.book = foundBook;
             review.save();
-            res.redirect("reviews4members");
+            /**
+             * todo: render page only after the data has been saved
+             * cheap hack solution
+             * sometimes db doesn't save data fast enough
+             */
+            setTimeout(() => {
+              res.redirect("/reviews");
+            }, 500);
           } else {
             console.log("No such book exists");
           }
         }
       });
     } else {
-      res.send("Invalid user");
+      console.log("Only registered users can enter data");
     }
   });
 
@@ -218,6 +226,7 @@ app
       } else {
         res.render("books", {
           isAuthenticated: authFlag,
+          isLogReg: false,
           books: foundBooks,
           userName: username,
           authors: authorsMid,
@@ -226,6 +235,9 @@ app
     });
   })
 
+  /**
+   * Placeholder pic: https://previews.123rf.com/images/mousemd/mousemd1710/mousemd171000009/87405336-404-not-found-concept-glitch-style-vector.jpg
+   */
   .post((req, res) => {
     if (req.isAuthenticated()) {
       let book = new Book({
@@ -262,7 +274,10 @@ app
                       res.send("Book already exists");
                     } else {
                       book.save();
-                      res.redirect("/books");
+                      //todo
+                      setTimeout(() => {
+                        res.redirect("/books");
+                      }, 500);
                     }
                   }
                 }

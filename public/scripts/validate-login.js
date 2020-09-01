@@ -15,7 +15,6 @@ function checkMe() {
         $(".login-btn").prop("disabled", true);
     } else {
         $(".login-btn").prop("disabled", false);
-        console.log($(".password").val());
     }
 
 }

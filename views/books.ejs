@@ -4,6 +4,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/search.js"></script>
 <script type="text/javascript" src="scripts/filter.js"></script>
+<% if (isAuthenticated) { %>
+<script type="text/javascript" src="scripts/addBook.js"></script>
+<% } %>
 
 <div class="greetings">
   <h3>Hello, <i><%=userName%></i></h3>
@@ -12,9 +15,12 @@
 <div class="row">
   <div class="col-12">
     <div class="search-bar">
-      <a href="#add-book" class="btn btn-dark btn-outline-info"
-        >Add a book, now!</a
+      <% if (isAuthenticated) { %>
+      <button
+        class="add-btn btn btn-dark btn-outline-info"
+        >Add a book, now!</button
       >
+      <% } %>
       <div class="float-right">
         <input
           class="search-input"
@@ -46,10 +52,9 @@
   </div>
   <hr />
 
-  <%- include('partials/render-books') %> 
   <% if (isAuthenticated) { %>
   <hr />
-  <div id="add-book">
+  <div id="add-book" style="display: none;">
     <form action="/books4members" method="post">
       <label for="title">title</label>
       <input type="text" class="form-control" name="title" />
@@ -69,7 +74,7 @@
       <a href="/logout" class="btn btn-light">Logout</a>
     </form>
   </div>
-  <% } %>
+  <% } %> <%- include('partials/render-books') %>
 </div>
 
 <%- include('partials/footer') %>

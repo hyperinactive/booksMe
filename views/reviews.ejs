@@ -1,40 +1,69 @@
-<%- include('partials/header') %>
-<%- include('partials/navbar-not-member') %>
+<%- include('partials/header') %> 
+<%- include('partials/navbar') %>
 
-
-<div id="wrapper">
-  <main role="main">
-    <div class="jumbotron">
-      <div class="container">
-        <h1 class="display-3">User reviews</h1>
-        <p>This is where we give writers a firm kick in the nuts for being a bunch of talentless bums! (~This gives meaning to my life~)</p>        
-      </div>
-    </div>
-  
-    <hr>
-  
+<main role="main">
+  <div class="jumbotron">
     <div class="container">
-      <div class="row">
-  
-      <% reviews.forEach(review=>{ %>
-        <div class="col-md-4">
-          <h2><%=review.book.title%></h2>
-          <p><%=review.rev%></p>
-          <p><%=review.user%></p>
-        </div>
-      <% }); %>
-      </div>
-  
-      <hr>
-  
-    </div>
-  
-  </main>
-  
-  <footer class="container">
-    <p>&copy; Books:<i>ME</i>></p>
-  </footer>
-</div>
+      <h1 class="display-3"><i>ME:</i>Reviewer</h1>
+      <p>
+        This is where we give writers a firm kick in the nuts for being a
+        bunch of talentless bums! (~This gives meaning to my life~)
+      </p>
+      <% if (isAuthenticated) { %>
+      <div class="form">
+        <form action="/reviews" method="post">
+          <div>
+            <div>
+              <label for="re">Book</label>
 
+              <div>
+                <select name="re">
+                  <% books.forEach(book=>{ %>
+                  <option value="<%=book.title%>"><%=book.title%></option>
+                  <% }); %>
+                </select>
+              </div>
+              <div>
+                <label for="review">Review:</label>
+              </div>
+            </div>
+            <textarea
+              name="review"
+              cols="100"
+              rows="6"
+              placeholder="Write your review here, peasant!"
+            ></textarea>
+          </div>
+          <label for="rating">Rating: </label>
+          <input type="number" name="rating" placeholder="1-5" />
+          <div>
+            <button class="btn btn-dark" type="submit">Post the review</button>
+          </div>
+        </form>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="container">
+    <div class="row">
+      <% reviews.forEach(review=>{ %>
+      <div class="col-md-4">
+        <h2><%=review.book.title%></h2>
+        <p><%=review.rev%></p>
+        <p><%=review.user%></p>
+      </div>
+      <% }); %>
+    </div>
+
+    <hr />
+  </div>
+</main>
+
+<footer class="container">
+  <p>&copy; <i>ME:</i>Reviews</p>
+</footer>
 
 <%- include('partials/footer') %>
