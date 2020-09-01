@@ -1,44 +1,75 @@
-<%- include('partials/header') %>
-<%- include('partials/navbar-not-member') %>
+<%- include('partials/header') %> 
+<%- include('partials/navbar') %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/search.js"></script>
 <script type="text/javascript" src="scripts/filter.js"></script>
 
 <div class="greetings">
-    <h2>Hello, <i>guest</i></h2>
+  <h3>Hello, <i><%=userName%></i></h3>
 </div>
 
 <div class="row">
-    <div class="search-bar col-11">
-        <div class="float-right">
-            <input class="search-input" type="text" placeholder="Search" autofocus>
-        <button class="btn btn-dark search-btn">Search</button>
-        </div>     
+  <div class="col-12">
+    <div class="search-bar">
+      <a href="#add-book" class="btn btn-dark btn-outline-info"
+        >Add a book, now!</a
+      >
+      <div class="float-right">
+        <input
+          class="search-input"
+          type="text"
+          name="search"
+          placeholder="Search"
+        />
+        <button class="btn btn-dark search-btn" type="submit">Search</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div id="filter-btn-title" class="col-2 book filter-btn">
-            <p class="btn btn-dark">title</p>
-        </div>
-        <div id="filter-btn-author" class="col-2 book filter-btn">
-            <p class="btn btn-dark">author</p>
-        </div>
-        <div id="filter-btn-isbn" class="col-1 book filter-btn">
-            <p class="btn btn-dark">isbn</p>
-        </div>
-        <div class="col-2 book">description</div>
-        <div class="col-2 book">publisher</div>
-        <div class="col-1 book">year of publication</div>
-        <div class="col-2 book">cover</div>
+  <div class="row">
+    <div id="filter-btn-title" class="col-2 book filter-btn">
+      <p class="btn btn-dark">title</p>
     </div>
+    <div id="filter-btn-author" class="col-2 book filter-btn">
+      <p class="btn btn-dark">author</p>
+    </div>
+    <div id="filter-btn-isbn" class="col-1 book filter-btn">
+      <p class="btn btn-dark">isbn</p>
+    </div>
+    <div class="col-2 book">description</div>
+    <div class="col-2 book">publisher</div>
+    <div class="col-1 book">year of publication</div>
+    <div class="col-2 book">cover</div>
+  </div>
+  <hr />
 
-    <hr>
+  <%- include('partials/render-books') %> 
+  <% if (isAuthenticated) { %>
+  <hr />
+  <div id="add-book">
+    <form action="/books4members" method="post">
+      <label for="title">title</label>
+      <input type="text" class="form-control" name="title" />
+      <label for="author">author</label>
+      <input type="text" class="form-control" name="author" />
+      <label for="isbn">isbn</label>
+      <input type="number" class="form-control" name="isbn" />
+      <label for="description">description</label>
+      <input type="text" class="form-control" name="description" />
+      <label for="publisher">publisher</label>
+      <input type="text" class="form-control" name="publisher" />
+      <label for="yearOfPublication">year of publication</label>
+      <input type="number" class="form-control" name="yearOfPublication" />
+      <hr />
 
-    <%- include('partials/render-books') %>
-
+      <button class="btn btn-dark" type="submit">Add a book</button>
+      <a href="/logout" class="btn btn-light">Logout</a>
+    </form>
+  </div>
+  <% } %>
 </div>
 
 <%- include('partials/footer') %>
