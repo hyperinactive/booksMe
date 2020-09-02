@@ -102,33 +102,25 @@ app.get("/", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
+  let alreadyLoggedFlag = false;
   if (req.isAuthenticated()) {
-    res.redirect("already-logged");
-  } else {
-    let logRegFlag = true;
-    res.render("register", { isLogReg: logRegFlag });
+    alreadyLoggedFlag = true;
   }
+  let logRegFlag = true;
+  res.render("register", {
+    isLogReg: logRegFlag,
+    isAuthenticated: alreadyLoggedFlag,
+    callType: "register",
+  });
 });
 
 app.get("/login", (req, res) => {
+  let alreadyLoggedFlag = false;
   if (req.isAuthenticated()) {
-    res.redirect("already-logged");
-  } else {
-    let logRegFlag = true;
-    res.render("login", { isLogReg: logRegFlag });
+    alreadyLoggedFlag = true;
   }
-});
-
-app.get("/already-logged", (req, res) => {
-  if (req.isUnauthenticated()) {
-    res.redirect("register");
-  } else {
-    let logRegFlag = true;
-    res.render("already-logged", {
-      username: req.user.username,
-      isLogReg: logRegFlag,
-    });
-  }
+  let logRegFlag = true;
+  res.render("register", { isLogReg: logRegFlag, isAuthenticated: alreadyLoggedFlag, callType: "login" });
 });
 
 app
