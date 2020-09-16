@@ -334,7 +334,6 @@ app.post("/login", (req, res) => {
 
   req.login(user, (err) => {
     if (err) {
-      alert("Something went wrong, please try again");
       console.log(err);
     } else {
       passport.authenticate("local")(req, res, () => {

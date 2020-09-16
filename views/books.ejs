@@ -1,5 +1,4 @@
-<%- include('partials/header') %> 
-<%- include('partials/navbar') %>
+<%- include('partials/header') %> <%- include('partials/navbar') %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/search.js"></script>
@@ -16,10 +15,9 @@
   <div class="col-12">
     <div class="search-bar">
       <% if (isAuthenticated) { %>
-      <button
-        class="add-btn btn btn-dark btn-outline-info"
-        >Add a book, now!</button
-      >
+      <button class="add-books-button btn btn-dark btn-outline-info">
+        Add a book, now!
+      </button>
       <% } %>
       <div class="float-right">
         <input
@@ -37,13 +35,13 @@
 <div class="container">
   <div class="row">
     <div id="filter-btn-title" class="col-2 book filter-btn">
-      <p class="btn btn-dark">title</p>
+      <button class="btn btn-dark">title</button>
     </div>
     <div id="filter-btn-author" class="col-2 book filter-btn">
-      <p class="btn btn-dark">author</p>
+      <button class="btn btn-dark">author</button>
     </div>
     <div id="filter-btn-isbn" class="col-1 book filter-btn">
-      <p class="btn btn-dark">isbn</p>
+      <button class="btn btn-dark">isbn</button>
     </div>
     <div class="col-2 book">description</div>
     <div class="col-2 book">publisher</div>
@@ -54,7 +52,7 @@
 
   <% if (isAuthenticated) { %>
   <hr />
-  <div id="add-book" style="display: none;">
+  <div id="add-book" style="display: none">
     <form action="/books4members" method="post">
       <label for="title">title</label>
       <input type="text" class="form-control" name="title" />
@@ -70,8 +68,7 @@
       <input type="number" class="form-control" name="yearOfPublication" />
       <hr />
 
-      <button class="btn btn-dark" type="submit">Add a book</button>
-      <a href="/logout" class="btn btn-light">Logout</a>
+      <button class="btn btn-dark" type="submit" style="margin: 0.5%">Add a book</button>
     </form>
   </div>
   <% } %> <%- include('partials/render-books') %>

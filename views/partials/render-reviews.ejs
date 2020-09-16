@@ -3,9 +3,14 @@
   <div class="container">
     <div class="row">
       <% reviews.forEach(review=>{ %>
-      <div class="col-md-4">
+      <div class="col-md-4 review">
         <h2><%=review.book.title%></h2>
+        <% if (review.rev.length >= 100) {  %>
+          <% let str = `${review.rev.substr(0,99)} ...`; %>
+          <p><%=str%></p>
+        <% } else { %>
         <p><%=review.rev%></p>
+        <% } %>
         <p><%=review.user%></p>
       </div>
       <% }); %>

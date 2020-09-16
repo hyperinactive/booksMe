@@ -18,6 +18,7 @@ body {
   padding: 1%;
   margin: 1% 0;
   background-color: rgb(127, 221, 177);
+  border-radius: 15px 45px 20px;
 }
 
 .centered {
@@ -37,6 +38,12 @@ body {
   margin: 2%;
 }
 
+#add-book {
+  padding: 1rem;
+  background-color: rgba(127, 221, 177, .6);
+  border-radius: 15px 45px;
+}
+
 .img {
   width: 100%;
 }
@@ -54,7 +61,17 @@ body {
   width: 100%;
 }
 
-.filter-btn p {
-  text-align: left;
-  width: 90%;
+.filter-btn button {
+  height: auto;
+  width: 100%;
+}
+
+.review {
+  background-color: rgba(127, 221, 177, .6);
+  border-radius: 15px 45px;
+  max-width: 90%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  justify-items: left;
 }

@@ -1,16 +1,14 @@
-console.log("This just works");
-
-console.log($(".add-btn").val());
-
-$(".add-btn").click(() => {
-  console.log("I work");
-  if ($(".add-btn").val() === "Add a book, now!") {
-    console.log("click");
-    $("#add-book").hide();
-    $(".add-btn").val("Maybe not");
-  } else {
-    console.log("reverse click");
-    $("#add-book").show();
-    $(".add-btn").val("Add a book, now!");
-  }
-})
+$(document).ready(() => {
+  let i = false;
+  $(".add-books-button").on("click", () => {
+    if (i) {
+      i = false;
+      $("#add-book").hide();
+      $(".add-books-button").html("Add a book, now!");
+    } else {
+      i = true;
+      $("#add-book").show();
+      $(".add-books-button").html("Maybe not");
+    }
+  });
+});

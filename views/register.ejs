@@ -14,9 +14,11 @@
   <h1>Register</h1>
   <% } else if (callType === "login") { %>
   <h1>Login</h1>
-  <% } else { %>
+  <% } else if (isAuthenticated) { %>
   <h1>Already logged!</h1>
   <% } %>
+
+  <!-- todo: handle already authenticated users who try to authenticate again-->>
 
   <div class="row">
     <div class="col-sm-12">
@@ -29,12 +31,12 @@
             <% } %>
             <div class="row">
               <div class="col-3">
-                <% if (callType === "register") { %>
+                <% if (isAuthenticated) { %>
+                  <a><img class="img" src="images/logged.jpg" /></a>
+                <% } else if (callType === "register") { %>
                 <a><img class="img" src="images/register.jpg" /></a>
                 <% } else if (callType === "alreadyLogged") { %>
                 <a><img class="img" src="images/already-logged.jpg" /></a>
-                <% } else { %>
-                <a><img class="img" src="images/logged.jpg" /></a>
                 <% } %>
               </div>
               <div class="col-sm-7">
@@ -77,9 +79,9 @@
                 <button type="submit" class="login-btn btn btn-dark" disabled>
                   Login
                 </button>
-                <a href="/login" class="btn btn-light"
-                  >Don't have an account?</a
-                >
+                <form action="/register" method="GET">
+                  <button type="submit" class="btn btn-light">Don't have an account?</button>
+              </form>
                 <% } %>
               </div>
             </div>
