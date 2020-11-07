@@ -1,0 +1,47 @@
+<%- include('partials/header') %> 
+<%- include('partials/navbar') %>
+
+<div class="container mt-5">
+  <h1>You're already registered!</h1>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3">
+              <a><img class="img" src="images/already-logged.jpg" /></a>
+            </div>
+            <div class="col-sm-7">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="username"
+                  disabled
+                  placeholder="<%=username%>"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  disabled
+                />
+              </div>
+
+              <a class="btn btn-dark" href="/switch">Switch accounts</a>
+              <a class="btn btn-light" href="/logout">Logout?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

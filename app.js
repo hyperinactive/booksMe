@@ -1,15 +1,16 @@
-require("dotenv").config();
-const express = require("express");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const mongoose = require("mongoose");
-const session = require("express-session");
-const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const ejs = require('ejs');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const app = express();
-app.use(express.static("public"));
-app.set("view engine", "ejs");
+
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -31,104 +32,56 @@ mongoose.connect(process.env.DB_HOST, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-mongoose.set("useCreateIndex", true);
+mongoose.set('useCreateIndex', true);
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  password: String,
-});
-
-const authorSchema = new mongoose.Schema({
-  name: String,
-});
-
-const bookSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  author: {
-    type: authorSchema,
-    required: true,
-  },
-  isbn: {
-    type: Number,
-    required: true,
-  },
-  description: String,
-  publisher: {
-    type: String,
-    required: true,
-  },
-  yearOfPublication: Number,
-  img: String,
-});
-
-const reviewSchema = new mongoose.Schema({
-  book: {
-    type: bookSchema,
-    required: true,
-  },
-  rev: {
-    type: String,
-    required: true,
-  },
-  grade: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 5,
-  },
-  user: String,
-});
-
-userSchema.plugin(passportLocalMongoose);
-
-const User = new mongoose.model("User", userSchema);
-const Book = new mongoose.model("Book", bookSchema);
-const Author = new mongoose.model("Author", authorSchema);
-const Review = new mongoose.model("Review", reviewSchema);
+const User = require('./models/userModel').User;
+const Book = require('./models/bookModel').Book;
+const Author = require('./models/authorModel').Author;
+const Review = require('./models/reviewModel').Review;
 
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/", (req, res) => {
-  res.render("home");
+app.get('/', (req, res) => {
+  res.render('home');
 });
 
-app.get("/register", (req, res) => {
+app.get('/register', (req, res) => {
+  callTypeString = 'register';
   let alreadyLoggedFlag = false;
   if (req.isAuthenticated()) {
     alreadyLoggedFlag = true;
+    callTypeString = 'alreadyLogged';
   }
   let logRegFlag = true;
-  res.render("register", {
+  res.render('register', {
     isLogReg: logRegFlag,
     isAuthenticated: alreadyLoggedFlag,
-    callType: "register",
+    callType: callTypeString,
   });
 });
 
-app.get("/login", (req, res) => {
+app.get('/login', (req, res) => {
   let alreadyLoggedFlag = false;
   if (req.isAuthenticated()) {
     alreadyLoggedFlag = true;
   }
   let logRegFlag = true;
-  res.render("register", { isLogReg: logRegFlag, isAuthenticated: alreadyLoggedFlag, callType: "login" });
+  res.render('register', {
+    isLogReg: logRegFlag,
+    isAuthenticated: alreadyLoggedFlag,
+    callType: 'login',
+  });
 });
 
 app
-  .route("/reviews")
+  .route('/reviews')
 
   .get((req, res) => {
     let authFlag = false;
-    let username = "Guest";
+    let username = 'Guest';
     if (req.isAuthenticated()) {
       authFlag = true;
       username = req.user.username;
@@ -141,7 +94,7 @@ app
           if (err) {
             console.log(err);
           } else {
-            res.render("reviews", {
+            res.render('reviews', {
               reviews: foundReviews,
               books: foundBooks,
               isLogReg: false,
@@ -155,7 +108,7 @@ app
 
   .post((req, res) => {
     let authFlag = false;
-    let username = "Guest";
+    let username = 'Guest';
     if (req.isAuthenticated()) {
       authFlag = true;
       username = req.user.username;
@@ -181,24 +134,32 @@ app
              * sometimes db doesn't save data fast enough
              */
             setTimeout(() => {
-              res.redirect("/reviews");
+              res.redirect('/reviews');
             }, 500);
           } else {
-            console.log("No such book exists");
+            console.log('No such book exists');
           }
         }
       });
     } else {
-      console.log("Only registered users can enter data");
+      console.log('Only registered users can enter data');
+    }
+  })
+
+  .delete((req, res) => {
+    if (isAuthenticated) {
+      username = req.user.username;
+    } else {
+      res.send('Not authenticated!');
     }
   });
 
 app
-  .route("/books")
+  .route('/books')
 
   .get((req, res) => {
     let authFlag = false;
-    let username = "Guest";
+    let username = 'Guest';
 
     if (req.isAuthenticated()) {
       authFlag = true;
@@ -216,7 +177,7 @@ app
       if (err) {
         console.log(err);
       } else {
-        res.render("books", {
+        res.render('books', {
           isAuthenticated: authFlag,
           isLogReg: false,
           books: foundBooks,
@@ -243,7 +204,7 @@ app
       const info = req.body.author;
 
       Author.findOne(
-        { name: { $regex: new RegExp("^" + info + "$", "i") } },
+        { name: { $regex: new RegExp('^' + info + '$', 'i') } },
         (err, foundAuthor) => {
           if (err) {
             console.log(err);
@@ -263,12 +224,12 @@ app
                     console.log(err);
                   } else {
                     if (foundBook) {
-                      res.send("Book already exists");
+                      res.send('Book already exists');
                     } else {
                       book.save();
                       //todo
                       setTimeout(() => {
-                        res.redirect("/books");
+                        res.redirect('/books');
                       }, 500);
                     }
                   }
@@ -281,30 +242,30 @@ app
               book.author = newAuthor;
               newAuthor.save();
               book.save();
-              res.redirect("/books");
+              res.redirect('/books');
             }
           }
         }
       );
     } else {
-      throw new Error("Invalid user");
+      throw new Error('Invalid user');
     }
   });
 
-app.get("/logout", (req, res) => {
+app.get('/logout', (req, res) => {
   req.logout();
-  res.redirect("/");
+  res.redirect('/');
 });
 
-app.post("/register", (req, res) => {
+app.post('/register', (req, res) => {
   User.findOne(
-    { username: { $regex: new RegExp("^" + req.body.username + "$", "i") } },
+    { username: { $regex: new RegExp('^' + req.body.username + '$', 'i') } },
     (err, foundUser) => {
       if (err) {
         console.log(err);
       } else {
         if (foundUser) {
-          res.send("User with that username already exists");
+          res.send('User with that username already exists');
         } else {
           User.register(
             { username: req.body.username },
@@ -312,10 +273,10 @@ app.post("/register", (req, res) => {
             (err, user) => {
               if (err) {
                 console.log(err);
-                res.redirect("/register");
+                res.redirect('/register');
               } else {
-                passport.authenticate("local")(req, res, () => {
-                  res.redirect("/books");
+                passport.authenticate('local')(req, res, () => {
+                  res.redirect('/books');
                 });
               }
             }
@@ -326,7 +287,7 @@ app.post("/register", (req, res) => {
   );
 });
 
-app.post("/login", (req, res) => {
+app.post('/login', (req, res) => {
   const user = new User({
     username: req.body.username,
     password: req.body.password,
@@ -336,25 +297,23 @@ app.post("/login", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      passport.authenticate("local")(req, res, () => {
-        res.redirect("/books");
+      passport.authenticate('local')(req, res, () => {
+        res.redirect('/books');
       });
     }
   });
 });
 
-app.get("/switch", (req, res) => {
+app.get('/switch', (req, res) => {
   req.logout();
-  res.redirect("login");
+  res.redirect('login');
 });
 
 app.use((req, res, next) => {
   res.status(404).send({
     status: 404,
-    error: "No such page exists",
+    error: 'No such page exists',
   });
 });
 
-app.listen(3000, () => {
-  console.log("Server running");
-});
+module.exports = app;

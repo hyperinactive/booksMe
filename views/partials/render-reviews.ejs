@@ -5,6 +5,7 @@
       <% reviews.forEach(review=>{ %>
       <div class="col-md-4 review">
         <h2><%=review.book.title%></h2>
+        <!--If the review is too long ~20 words or less please-->
         <% if (review.rev.length >= 100) {  %>
           <% let str = `${review.rev.substr(0,99)} ...`; %>
           <p><%=str%></p>

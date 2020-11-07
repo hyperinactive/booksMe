@@ -69,7 +69,8 @@ body {
 .review {
   background-color: rgba(127, 221, 177, .6);
   border-radius: 15px 45px;
-  max-width: 90%;
+  width: 80%;
+  max-height: 80%;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
