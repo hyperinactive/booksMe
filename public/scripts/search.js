@@ -1,4 +1,5 @@
 $('document').ready(() => {
+  // todo I don't endorse this kind of coding, please don't be me
   const searchFn = () => {
     const search = $('.search-input').val().toLowerCase();
     $('.search-input').val('');

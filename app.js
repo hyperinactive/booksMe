@@ -5,7 +5,6 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
 
 const app = express();
 
@@ -39,6 +38,10 @@ const Book = require('./models/bookModel').Book;
 const Author = require('./models/authorModel').Author;
 const Review = require('./models/reviewModel').Review;
 
+const UserController = require('./controllers/userController');
+const ReviewController = require('./controllers/reviewController');
+const BookController = require('./controllers/bookController');
+
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
@@ -48,271 +51,42 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
-app.get('/register', (req, res) => {
-  callTypeString = 'register';
-  let alreadyLoggedFlag = false;
-  if (req.isAuthenticated()) {
-    alreadyLoggedFlag = true;
-    callTypeString = 'alreadyLogged';
-  }
-  let logRegFlag = true;
-  res.render('register', {
-    isLogReg: logRegFlag,
-    isAuthenticated: alreadyLoggedFlag,
-    callType: callTypeString,
-  });
-});
+// handle users
+app
+  .route('/register')
+  .get(UserController.renderRegister)
+  .post(UserController.register);
+app
+  .route('/login')
+  .get(UserController.renderLogin)
+  .post(UserController.login);
+app.get('/logout', UserController.logout);
 
-app.get('/login', (req, res) => {
-  let alreadyLoggedFlag = false;
-  if (req.isAuthenticated()) {
-    alreadyLoggedFlag = true;
-  }
-  let logRegFlag = true;
-  res.render('register', {
-    isLogReg: logRegFlag,
-    isAuthenticated: alreadyLoggedFlag,
-    callType: 'login',
-  });
-});
-
+// handle reviews
 app
   .route('/reviews')
+  .get(ReviewController.getReviews)
+  .post(ReviewController.createReview)
+  .delete(ReviewController.deleteReview);
 
-  .get((req, res) => {
-    let authFlag = false;
-    let username = 'Guest';
-    if (req.isAuthenticated()) {
-      authFlag = true;
-      username = req.user.username;
-    }
-    Book.find({}, (err, foundBooks) => {
-      if (err) {
-        console.log(err);
-      } else {
-        Review.find({}, (err, foundReviews) => {
-          if (err) {
-            console.log(err);
-          } else {
-            res.render('reviews', {
-              reviews: foundReviews,
-              books: foundBooks,
-              isLogReg: false,
-              isAuthenticated: authFlag,
-            });
-          }
-        });
-      }
-    });
-  })
-
-  .post((req, res) => {
-    let authFlag = false;
-    let username = 'Guest';
-    if (req.isAuthenticated()) {
-      authFlag = true;
-      username = req.user.username;
-
-      const review = new Review({
-        rev: req.body.review,
-        grade: req.body.rating,
-        user: req.user.username,
-      });
-
-      const tit = req.body.re.toString();
-
-      Book.findOne({ title: tit }, (err, foundBook) => {
-        if (err) {
-          console.log(err);
-        } else {
-          if (foundBook) {
-            review.book = foundBook;
-            review.save();
-            /**
-             * todo: render page only after the data has been saved
-             * cheap hack solution
-             * sometimes db doesn't save data fast enough
-             */
-            setTimeout(() => {
-              res.redirect('/reviews');
-            }, 500);
-          } else {
-            console.log('No such book exists');
-          }
-        }
-      });
-    } else {
-      console.log('Only registered users can enter data');
-    }
-  })
-
-  .delete((req, res) => {
-    if (isAuthenticated) {
-      username = req.user.username;
-    } else {
-      res.send('Not authenticated!');
-    }
-  });
-
+// handle books
 app
   .route('/books')
+  .get(BookController.getBooks)
+  .post(BookController.createBook);
 
-  .get((req, res) => {
-    let authFlag = false;
-    let username = 'Guest';
-
-    if (req.isAuthenticated()) {
-      authFlag = true;
-      username = req.user.username;
-    }
-    let authorsMid = {};
-    Author.find({}, (err, foundAuthors) => {
-      if (err) {
-        console.log(err);
-      } else {
-        authorsMid = foundAuthors;
-      }
-    });
-    Book.find({}, (err, foundBooks) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render('books', {
-          isAuthenticated: authFlag,
-          isLogReg: false,
-          books: foundBooks,
-          userName: username,
-          authors: authorsMid,
-        });
-      }
-    });
-  })
-
-  /**
-   * Placeholder pic: https://previews.123rf.com/images/mousemd/mousemd1710/mousemd171000009/87405336-404-not-found-concept-glitch-style-vector.jpg
-   */
-  .post((req, res) => {
-    if (req.isAuthenticated()) {
-      let book = new Book({
-        title: req.body.title,
-        isbn: req.body.isbn,
-        description: req.body.description,
-        publisher: req.body.publisher,
-        yearOfPublication: req.body.yearOfPublication,
-      });
-
-      const info = req.body.author;
-
-      Author.findOne(
-        { name: { $regex: new RegExp('^' + info + '$', 'i') } },
-        (err, foundAuthor) => {
-          if (err) {
-            console.log(err);
-          } else {
-            if (foundAuthor) {
-              book.author = foundAuthor;
-
-              Book.findOne(
-                {
-                  title: book.title,
-                  author: book.author,
-                  isbn: book.isbn,
-                  publisher: book.publisher,
-                },
-                (err, foundBook) => {
-                  if (err) {
-                    console.log(err);
-                  } else {
-                    if (foundBook) {
-                      res.send('Book already exists');
-                    } else {
-                      book.save();
-                      //todo
-                      setTimeout(() => {
-                        res.redirect('/books');
-                      }, 500);
-                    }
-                  }
-                }
-              );
-            } else {
-              const newAuthor = new Author({
-                name: info,
-              });
-              book.author = newAuthor;
-              newAuthor.save();
-              book.save();
-              res.redirect('/books');
-            }
-          }
-        }
-      );
-    } else {
-      throw new Error('Invalid user');
-    }
-  });
-
-app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
-
-app.post('/register', (req, res) => {
-  User.findOne(
-    { username: { $regex: new RegExp('^' + req.body.username + '$', 'i') } },
-    (err, foundUser) => {
-      if (err) {
-        console.log(err);
-      } else {
-        if (foundUser) {
-          res.send('User with that username already exists');
-        } else {
-          User.register(
-            { username: req.body.username },
-            req.body.password,
-            (err, user) => {
-              if (err) {
-                console.log(err);
-                res.redirect('/register');
-              } else {
-                passport.authenticate('local')(req, res, () => {
-                  res.redirect('/books');
-                });
-              }
-            }
-          );
-        }
-      }
-    }
-  );
-});
-
-app.post('/login', (req, res) => {
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password,
-  });
-
-  req.login(user, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      passport.authenticate('local')(req, res, () => {
-        res.redirect('/books');
-      });
-    }
-  });
-});
-
-app.get('/switch', (req, res) => {
-  req.logout();
-  res.redirect('login');
-});
-
+// handle non-existent URLs or internal errors
 app.use((req, res, next) => {
   res.status(404).send({
     status: 404,
     error: 'No such page exists',
+  });
+});
+
+app.use((req, res, next) => {
+  res.status(500).send({
+    status: 500,
+    error: 'Internal server error, sorry, sorry :(',
   });
 });
 
