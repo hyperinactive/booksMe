@@ -6,7 +6,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  password: String,
+  password: {
+    type: String,
+    required: true,
+  },
 });
 
 userSchema.plugin(passportLocalMongoose);

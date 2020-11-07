@@ -33,11 +33,27 @@
             <div class="row">
               <div class="col-3">
                 <% if (callType === "login") { %>
-                  <a><img class="img" src="images/logged.jpg" /></a>
+                  <figure>
+                    <a>
+                      <img class="img" src="images/logged.jpg" />
+                      <figcaption class="figure-caption">artwork by Bruno (diberkato)</figcaption>
+                    </a>
+                  </figure>
+                  
                 <% } else if (callType === "register") { %>
-                <a><img class="img" src="images/register.jpg" /></a>
+                  <figure>
+                    <a>
+                      <img class="img" src="images/register.jpg" />
+                      <figcaption class="figure-caption">artwork by Bruno (diberkato)</figcaption>
+                    </a>
+                  </figure>
                 <% } else if (callType === "alreadyLogged") { %>
-                <a><img class="img" src="images/already-logged.jpg" /></a>
+                  <figure>
+                    <a>
+                      <img class="img" src="images/already-logged.jpg" />
+                      <figcaption class="figure-caption">artwork by Bruno (diberkato)</figcaption>
+                    </a>
+                  </figure>
                 <% } %>
               </div>
               <div class="col-sm-7">

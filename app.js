@@ -34,9 +34,6 @@ mongoose.connect(process.env.DB_HOST, {
 mongoose.set('useCreateIndex', true);
 
 const User = require('./models/userModel').User;
-const Book = require('./models/bookModel').Book;
-const Author = require('./models/authorModel').Author;
-const Review = require('./models/reviewModel').Review;
 
 const UserController = require('./controllers/userController');
 const ReviewController = require('./controllers/reviewController');

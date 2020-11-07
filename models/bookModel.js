@@ -20,7 +20,10 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  yearOfPublication: Number,
+  yearOfPublication: {
+    type: Number,
+    required: true,
+  },
   img: String,
 });
 

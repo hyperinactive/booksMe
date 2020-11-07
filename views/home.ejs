@@ -1,15 +1,24 @@
 <%- include('partials/header') %>
 
-
 <div class="jumbotron centered">
   <div class="container">
-    <img class="mb-4" src="images/logo.jpg" width="288" height="288">
+    <figure>
+      <img
+        class="mb-4 figure-img img-fluid rounded"
+        src="images/logo.jpg"
+        width="288"
+        height="288"
+      />
+      <figcaption class="figure-caption">artwork by Kyoung Hwan Kim</figcaption>
+    </figure>
+
     <h1 class="display-3">Books: <i>ME</i></h1>
     <p class="lead">Gimme your books!</p>
-    <hr>
-    <a class="btn btn-light btn-lg b" href="/register" role="button">Register</a>
+    <hr />
+    <a class="btn btn-light btn-lg b" href="/register" role="button"
+      >Register</a
+    >
     <a class="btn btn-dark btn-lg b" href="/login" role="button">Login</a>
-
   </div>
   <div>
     <a class="btn btn-dark btn-lg b" href="/books" role="button">Books</a>
