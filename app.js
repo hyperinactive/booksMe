@@ -6,9 +6,12 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
+const upload = require('./middleware/multer');
+const morgan = require('morgan');
 
 const app = express();
 
+// config the templating engine, static folder and morgan
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(
@@ -17,8 +20,12 @@ app.use(
   })
 );
 
+app.use(morgan('dev'));
+
+// use cors
 app.use(cors());
 
+// config express sessions
 app.use(
   session({
     secret: process.env.SECRET,
@@ -27,8 +34,12 @@ app.use(
   })
 );
 
+// use passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+// connect to the database
 
 mongoose.connect(
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
@@ -48,6 +59,8 @@ mongoose.connection.on('error', () => {
   console.log('error connecting to mongodb oh hell yea');
 });
 
+
+// get modules
 const User = require('./models/userModel').User;
 
 const UserController = require('./controllers/userController');
@@ -59,6 +72,7 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// landing page
 app.get('/', (req, res) => {
   req.isAuthenticated() ? (authFlag = true) : (authFlag = false);
   res.render('home', { isAuthenticated: authFlag, isLogReg: false });
@@ -83,7 +97,7 @@ app
 app
   .route('/books')
   .get(BookController.getBooks)
-  .post(BookController.createBook);
+  .post( upload.single('coverImage'), BookController.createBook);
 
 // handle non-existent URLs or internal errors
 app.use((req, res, next) => {

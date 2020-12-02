@@ -1,6 +1,9 @@
 #Preferences
 .DS_Store
 
+# Public uploads
+public/uploads
+
 # Logs
 logs
 *.log

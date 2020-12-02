@@ -43,6 +43,7 @@ exports.createBook = async (req, res, next) => {
       description: req.body.description,
       publisher: req.body.publisher,
       yearOfPublication: req.body.yearOfPublication,
+      coverImage: req.file.path,
     });
 
     const info = req.body.author;
@@ -72,10 +73,6 @@ exports.createBook = async (req, res, next) => {
                     res.send('Book already exists');
                   } else {
                     book.save();
-                    //todo
-                    setTimeout(() => {
-                      res.redirect('/books');
-                    }, 500);
                   }
                 }
               }

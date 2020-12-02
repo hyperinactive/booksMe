@@ -50,7 +50,7 @@
   <% if (isAuthenticated) { %>
   <hr />
   <div id="add-book" style="display: none">
-    <form action="/books" method="post">
+    <form action="/books" enctype="multipart/form-data" method="post">
       <label for="title">title</label>
       <input type="text" class="form-control" name="title" required />
       <label for="author">author</label>
@@ -63,6 +63,8 @@
       <input type="text" class="form-control" name="publisher" required />
       <label for="yearOfPublication">year of publication</label>
       <input type="number" class="form-control" name="yearOfPublication" required />
+      <label for="coverImage">cover</label>
+      <input type="file" class="from-control" name="coverImage" />
       <hr />
 
       <button class="btn btn-dark" type="submit" style="margin: 0.5%">
