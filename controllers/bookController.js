@@ -1,7 +1,7 @@
 const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
 
-exports.getBooks = (req, res, next) => {
+exports.getBooks = async (req, res, next) => {
   let authFlag = false;
   let username = 'Guest';
 
@@ -9,12 +9,9 @@ exports.getBooks = (req, res, next) => {
     authFlag = true;
     username = req.user.username;
   }
-  let authorsMid = {};
-  Author.find({}, (err, foundAuthors) => {
+  const foundAuthors = await Author.find({}, (err, foundAuthors) => {
     if (err) {
       console.log(err);
-    } else {
-      authorsMid = foundAuthors;
     }
   });
   Book.find({}, (err, foundBooks) => {
@@ -26,13 +23,12 @@ exports.getBooks = (req, res, next) => {
         isLogReg: false,
         books: foundBooks,
         userName: username,
-        authors: authorsMid,
+        authors: foundAuthors,
       });
     }
   });
 };
 
-// Placeholder pic: https://previews.123rf.com/images/mousemd/mousemd1710/mousemd171000009/87405336-404-not-found-concept-glitch-style-vector.jpg
 exports.createBook = (req, res, next) => {
   if (req.isAuthenticated()) {
     let book = new Book({

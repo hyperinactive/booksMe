@@ -6,8 +6,47 @@ html,body
     padding: 0px;
     overflow-x: hidden; 
 }
-body {
-  background-color: #E8ECEF;  
+/* HOME PAGE */
+
+.parallax {
+  position: relative;
+	height: 90%;
+  width: 100%;
+}
+
+.jumbotron {
+  border-radius: 0% !important;
+  background-color: transparent;
+  padding: 1rem 15rem; 
+  margin: 0;
+  padding-top: 9em;
+  text-align: center;
+}
+
+#main-background {
+  width: 100%;
+  height: 50em;
+  background: url(../images/home-back.jpg) no-repeat center center fixed;
+}
+
+.title {
+  color: #fff;
+  text-align: center;
+  font-size: 5rem;
+  padding: 15rem;
+}
+
+#breaker {
+  padding: 2em 10em;
+  background: #212529;
+  text-align: center;
+  width: 100%;
+}
+
+#detail-background {
+  width: 100%;
+  height: 60em;
+  background: url(../images/parallax-front-dark.jpg) no-repeat center right fixed;
 }
 
 .search-bar {
@@ -19,15 +58,6 @@ body {
   margin: 1% 0;
   background-color: rgb(127, 221, 177);
   border-radius: 15px 45px 20px;
-}
-
-.centered {
-  padding-top: 200px;
-  text-align: center;
-}
-
-.jumbotron {
-  padding: 1rem 15rem;
 }
 
 .b {
