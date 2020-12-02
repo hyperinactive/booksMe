@@ -1,7 +1,7 @@
 const passport = require('passport');
 const User = require('../models/userModel').User;
 
-exports.renderRegister = (req, res, next) => {
+exports.renderRegister = async (req, res, next) => {
   callTypeString = 'register';
   let alreadyLoggedFlag = false;
   if (req.isAuthenticated()) {
@@ -16,7 +16,7 @@ exports.renderRegister = (req, res, next) => {
   });
 };
 
-exports.renderLogin = (req, res, next) => {
+exports.renderLogin = async (req, res, next) => {
   let alreadyLoggedFlag = false;
   if (req.isAuthenticated()) {
     alreadyLoggedFlag = true;
@@ -29,7 +29,7 @@ exports.renderLogin = (req, res, next) => {
   });
 };
 
-exports.register = (req, res, next) => {
+exports.register = async (req, res, next) => {
   User.findOne(
     { username: { $regex: new RegExp('^' + req.body.username + '$', 'i') } },
     (err, foundUser) => {

@@ -1,9 +1,9 @@
 $('document').ready(() => {
   $('.password-check').on('change keyup paste', () => {
-    if ($('.password').val() === $('.password-check').val()) {
-      $('.register-btn').prop('disabled', false);
+    if (($('.password').val() === $('.password-check').val()) && ($('.username').val() !== '')) {
+      $('.login-btn').prop('disabled', false);
     } else {
-      $('.register-btn').prop('disabled', true);
+      $('.login-btn').prop('disabled', true);
     }
   });
 });

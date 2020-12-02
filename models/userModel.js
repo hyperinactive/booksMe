@@ -1,15 +1,10 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 
+// because of my use of passport magic to register users, "required" tags remain unused
 const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+  username: String,
+  password: String
 });
 
 userSchema.plugin(passportLocalMongoose);

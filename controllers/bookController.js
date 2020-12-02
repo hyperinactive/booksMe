@@ -9,27 +9,33 @@ exports.getBooks = async (req, res, next) => {
     authFlag = true;
     username = req.user.username;
   }
-  const foundAuthors = await Author.find({}, (err, foundAuthors) => {
-    if (err) {
-      console.log(err);
-    }
-  });
-  Book.find({}, (err, foundBooks) => {
+  let authorsMid = {};
+  Author.find({}, (err, foundAuthors) => {
     if (err) {
       console.log(err);
     } else {
-      res.render('books', {
-        isAuthenticated: authFlag,
-        isLogReg: false,
-        books: foundBooks,
-        userName: username,
-        authors: foundAuthors,
+      authorsMid = foundAuthors;
+
+
+      Book.find({}, (err, foundBooks) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render('books', {
+            isAuthenticated: authFlag,
+            isLogReg: false,
+            books: foundBooks,
+            userName: username,
+            authors: authorsMid,
+          });
+        }
       });
     }
   });
+  
 };
 
-exports.createBook = (req, res, next) => {
+exports.createBook = async (req, res, next) => {
   if (req.isAuthenticated()) {
     let book = new Book({
       title: req.body.title,
@@ -49,6 +55,7 @@ exports.createBook = (req, res, next) => {
         } else {
           if (foundAuthor) {
             book.author = foundAuthor;
+
 
             Book.findOne(
               {

@@ -1,7 +1,7 @@
 const Book = require('../models/bookModel').Book;
 const Review = require('../models/reviewModel').Review;
 
-exports.getReviews = (req, res, next) => {
+exports.getReviews = async (req, res, next) => {
   let authFlag = false;
   let username = 'Guest';
   if (req.isAuthenticated()) {
@@ -28,7 +28,7 @@ exports.getReviews = (req, res, next) => {
   });
 };
 
-exports.createReview = (req, res, next) => {
+exports.createReview = async (req, res, next) => {
   let authFlag = false;
   let username = 'Guest';
   if (req.isAuthenticated()) {
@@ -68,7 +68,7 @@ exports.createReview = (req, res, next) => {
   }
 };
 
-exports.deleteReview = (req, res, next) => {
+exports.deleteReview = async (req, res, next) => {
   if (isAuthenticated) {
     username = req.user.username;
   } else {

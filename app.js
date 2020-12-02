@@ -5,6 +5,7 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
+const cors = require('cors');
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use(cors());
 
 app.use(
   session({
@@ -27,11 +30,23 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect(process.env.DB_HOST, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
+
 mongoose.set('useCreateIndex', true);
+
+mongoose.connection.on('connected', () => {
+  console.log('connected to mongodb oh hell yea');
+});
+
+mongoose.connection.on('error', () => {
+  console.log('error connecting to mongodb oh hell yea');
+});
 
 const User = require('./models/userModel').User;
 
@@ -45,8 +60,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.get('/', (req, res) => {
-  req.isAuthenticated() ? authFlag = true : authFlag = false  
-  res.render('home', {isAuthenticated: authFlag, isLogReg: false});
+  req.isAuthenticated() ? (authFlag = true) : (authFlag = false);
+  res.render('home', { isAuthenticated: authFlag, isLogReg: false });
 });
 
 // handle users
@@ -54,10 +69,7 @@ app
   .route('/register')
   .get(UserController.renderRegister)
   .post(UserController.register);
-app
-  .route('/login')
-  .get(UserController.renderLogin)
-  .post(UserController.login);
+app.route('/login').get(UserController.renderLogin).post(UserController.login);
 app.get('/logout', UserController.logout);
 
 // handle reviews

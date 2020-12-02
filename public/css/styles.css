@@ -49,6 +49,8 @@ html,body
   background: url(../images/parallax-front-dark.jpg) no-repeat center right fixed;
 }
 
+/* ---------------------------------------- */
+
 .search-bar {
   margin: 0 2%;
 }
@@ -57,7 +59,11 @@ html,body
   padding: 1%;
   margin: 1% 0;
   background-color: rgb(127, 221, 177);
-  border-radius: 15px 45px 20px;
+  /* border-radius: 15px 45px 20px; */
+}
+
+.book-row:hover {
+  background-color: rgb(153, 233, 196);
 }
 
 .b {
