@@ -1,7 +1,7 @@
 const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
 
-const renderBooks = (req, foundBooks, authorsMid) => {
+exports.getBooks = async (req, res, next) => {
   let authFlag = false;
   let username = 'Guest';
 
@@ -10,41 +10,33 @@ const renderBooks = (req, foundBooks, authorsMid) => {
     username = req.user.username;
   }
 
-  return {
-    isAuthenticated: authFlag,
-    isLogReg: false,
-    books: foundBooks,
-    userName: username,
-    authors: authorsMid,
-  }
-}
-
-exports.getBooks = async (req, res, next) => {
   let authorsMid = {};
   Author.find({}, (err, foundAuthors) => {
     if (err) {
       console.log(err);
     } else {
       authorsMid = foundAuthors;
-
-
       Book.find({}, (err, foundBooks) => {
         if (err) {
           console.log(err);
         } else {
-          res.status(200).render('books', renderBooks(req, foundBooks, authorsMid));
+          res.render('books', {
+            isAuthenticated: authFlag,
+            isLogReg: false,
+            books: foundBooks,
+            userName: username,
+            authors: authorsMid,
+          });
         }
-          
       });
     }
   });
-  
 };
 
 exports.createBook = async (req, res, next) => {
   if (req.isAuthenticated()) {
     let coverPath;
-    req.file.path ? coverPath = null : coverPath = req.file.path;
+    !req.file.path ? (coverPath = null) : (coverPath = req.file.path);
 
     let book = new Book({
       title: req.body.title,
@@ -67,8 +59,6 @@ exports.createBook = async (req, res, next) => {
           // if an author has been found, his id will be books author id
           if (foundAuthor) {
             book.author = foundAuthor;
-
-
             Book.findOne(
               {
                 title: book.title,
@@ -84,6 +74,7 @@ exports.createBook = async (req, res, next) => {
                     book.save();
                   }
                 }
+                res.redirect('/books');
               }
             );
           } else {
@@ -100,6 +91,8 @@ exports.createBook = async (req, res, next) => {
       }
     );
   } else {
-    throw new Error('Invalid user');
+    res.status(401).json({
+      error: 'Invalid user',
+    });
   }
 };

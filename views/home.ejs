@@ -1,69 +1,76 @@
-<%- include('partials/header') %>
+<%- include('partials/header') %> 
 <%- include('partials/navbar') %>
 
-
 <div id="main-background">
-
-<!-- carousel -->
-<div id="sliding-text-carousel" class="carousel slide" data-ride="carousel" data-interval="5000">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="title d-block w-100" atl="First slide">
-        <p>Elementary, my dear Watson.</p>
-        <p>todo</p>
+  <!-- carousel -->
+  <div
+    id="sliding-text-carousel"
+    class="carousel slide"
+    data-ride="carousel"
+    data-interval="6000"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="quote d-block w-100" atl="First slide">
+          <p>“He who seeks does not find, but he who does not seek will be found.”</p>
+          <p class="author">Franz Kafka</p>
+        </div>
       </div>
-    </div>
-    <div class="carousel-item">
-      <div class="title d-block w-100" atl="Second slide">
-        <p>Very elementary, my dear Watson.</p>
-        <p>todo</p>
+      <div class="carousel-item">
+        <div class="quote d-block w-100" atl="Second slide">
+          <p>
+            “The scariest moment is always just before you start.”
+          </p>
+          <p class="author">Stephen King</p>
+        </div>
       </div>
-    </div>
-    <div class="carousel-item">
-      <div class="title d-block w-100" atl="Third slide">
-        <p>Most elementary, my dear Watson.</p>
-        <p>todo</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-  <!-- call for action -->
-<div class="jumbotron centered">
-      <div class="container">
-        <figure>
-          <img
-            class="mb-4 figure-img img-fluid rounded"
-            src="images/logo.jpg"
-            width="288"
-            height="288"
-          />
-          <figcaption class="figure-caption">artwork by Kyoung Hwan Kim</figcaption>
-        </figure>
-        <div>
-          <h1 class="display-3">Books: <i>ME</i></h1>
-          <p class="lead">Gimme your books!</p>
+      <div class="carousel-item">
+        <div class="quote d-block w-100" atl="Third slide">
+          <p>“Kids, you tried your best and you failed miserably. The lesson is, never try."</p>
+          <p class="author">Homer Simpson</p>
         </div>
       </div>
     </div>
+    <div class="main-books-btn">
+      <a class="btn btn-danger btn-lg b" href="/books" role="button">Check out them books</a>
+    </div>
+  </div>
+</div>
 
-
+<!-- call for action -->
+<div class="jumbotron centered">
+  <div class="container">
+    <figure>
+      <img
+        class="mb-4 figure-img img-fluid rounded"
+        src="images/logo.jpg"
+        width="288"
+        height="288"
+      />
+      <figcaption class="figure-caption">artwork by Kyoung Hwan Kim</figcaption>
+    </figure>
+    <div>
+      <h1 class="display-3">Books: <i>ME</i></h1>
+      <p class="lead">Gimme your books!</p>
+    </div>
+  </div>
+</div>
 
 <!-- breaker div -->
 <div id="breaker">
   <div>
-  <a class="btn btn-light btn-lg b" href="/register" role="button"
+    <a class="btn btn-light btn-lg b" href="/register" role="button"
       >Register</a
     >
-    <a class="btn btn-dark btn-lg b" href="/login" role="button">Login</a>
-  </div>
-  <div>
-    <a class="btn btn-dark btn-lg b" href="/books" role="button">Books</a>
-    <a class="btn btn-light btn-lg b" href="/reviews" role="button">Reviews</a>
+    <a class="btn btn-danger btn-lg b" href="/login" role="button">Login</a>
   </div>
 </div>
 
-<div id="detail-background" class="parallax"></div>
+<div id="detail-background" class="parallax">
+  <div>
+    <a class="btn btn-danger btn-lg b" href="/books" role="button">Books</a>
+    <a class="btn btn-light btn-lg b" href="/reviews" role="button">Reviews</a>
+  </div>
+</div>
 
 <%- include('partials/footer') %>

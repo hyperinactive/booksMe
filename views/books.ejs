@@ -3,9 +3,6 @@
 
 <div class="greetings">
   <h3>Hello, <i><%=userName%></i></h3>
-  <!--<form action="/" method="GET">
-    <button type="submit" >Test home</button>
-  </form>-->
 </div>
 
 <div class="row">
@@ -17,34 +14,20 @@
       </button>
       <% } %>
       <div class="float-right">
-        <input
-          class="search-input"
-          type="text"
-          name="search"
-          placeholder="Search"
-        />
-        <button class="btn btn-dark search-btn" type="submit">Search</button>
+        <div class="search-input input-group mb-3">
+          <input type="search" class="form-control" placeholder="Here" aria-label="Here" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">Search</span>
+          </div>
+        </div>
+        <!-- <button class="btn btn-dark search-btn" type="submit">Search</button> -->
       </div>
     </div>
   </div>
 </div>
 
 <div class="container">
-  <div class="row">
-    <div id="filter-btn-title" class="col-2 book filter-btn">
-      <button class="btn btn-dark">title</button>
-    </div>
-    <div id="filter-btn-author" class="col-2 book filter-btn">
-      <button class="btn btn-dark">author</button>
-    </div>
-    <div id="filter-btn-isbn" class="col-1 book filter-btn">
-      <button class="btn btn-dark">isbn</button>
-    </div>
-    <div class="col-2 book">description</div>
-    <div class="col-2 book">publisher</div>
-    <div class="col-1 book">year of publication</div>
-    <div class="col-2 book">cover</div>
-  </div>
+  
   <hr />
 
   <% if (isAuthenticated) { %>
@@ -72,23 +55,8 @@
   </div>
   <% } %> <%- include('partials/render-books') %>
 </div>
-<script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-  crossorigin="anonymous"
-></script>
 
-<script type="text/javascript" src="scripts/search.js"></script>
-<script type="text/javascript" src="scripts/filter.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <% if (isAuthenticated) { %>
 <script type="text/javascript" src="scripts/addBook.js"></script>
 <% } %>

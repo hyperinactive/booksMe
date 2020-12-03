@@ -6,6 +6,9 @@ html,body
     padding: 0px;
     overflow-x: hidden; 
 }
+
+/* ---------------------------------------- */
+
 /* HOME PAGE */
 
 .parallax {
@@ -26,14 +29,25 @@ html,body
 #main-background {
   width: 100%;
   height: 50em;
+  align-items: center;
+  text-align: center;
   background: url(../images/home-back.jpg) no-repeat center center fixed;
 }
 
-.title {
+.quote {
   color: #fff;
   text-align: center;
-  font-size: 5rem;
+  font-size: 3.5rem;
   padding: 15rem;
+}
+
+.author {
+  font-size: 2rem;
+}
+
+.main-books-btn {
+  position: relative;
+  bottom: 5em;
 }
 
 #breaker {
@@ -47,6 +61,7 @@ html,body
   width: 100%;
   height: 60em;
   background: url(../images/parallax-front-dark.jpg) no-repeat center right fixed;
+  text-align: center;
 }
 
 /* ---------------------------------------- */
@@ -55,6 +70,10 @@ html,body
 
 .search-bar {
   margin: 0 2%;
+}
+
+.search-input {
+  width: 25rem;
 }
 
 .b {
@@ -71,42 +90,38 @@ html,body
   border-radius: 15px 45px;
 }
 
-.grid-wapper {
-  width: 100%;
-  margin: auto;
-}
-
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-  grid-gap: 10px;
+  gap: 3rem;
+  width: 100%;
 }
 
 .grid-item {
-  position: relative;
-  border: 1px solid;
-  background-color: #7dafe0;
+  text-align: center;
+  font-size: larger;
+  font-weight: 700;
 }
 
-.grid-item:hover {
-  background-color: #212529;
+.thumb {
+  filter: grayscale(80%);
+  height: 20rem;
+  border-radius: 0.5em;
+  border: #04767a solid;
 }
 
-.grid-item:before {
-  content: '';
-  display: block;
-  padding-top: 100%;
+.thumb:hover {
+  transform: scale(1.03) translateX(3%);
+  filter: grayscale(20%);
 }
 
-.grid-container .content {
-  position: absolute;
-  top: 0; left: 0;
-  height: 100%;
-  width: 100%;
+.book-info {
+  margin: 1.5rem;
 }
 
-.img {
-  width: 100%;
+.add-info {
+  font-size: medium;
+  font-weight: 400;
 }
 
 .add-b {
@@ -136,4 +151,8 @@ html,body
   flex-flow: column;
   justify-content: space-between;
   justify-items: left;
+}
+
+.register-img {
+  width: 100%;
 }

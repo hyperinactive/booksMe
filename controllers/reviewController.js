@@ -50,14 +50,6 @@ exports.createReview = async (req, res, next) => {
         if (foundBook) {
           review.book = foundBook;
           review.save();
-          /**
-           * todo: render page only after the data has been saved
-           * cheap hack solution
-           * sometimes db doesn't save data fast enough
-           */
-          setTimeout(() => {
-            res.redirect('/reviews');
-          }, 500);
         } else {
           console.log('No such book exists');
         }

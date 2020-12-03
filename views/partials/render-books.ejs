@@ -2,27 +2,35 @@
     <div class="grid-wrapper">
         <div class="grid-container">
             
+            <!-- go through the books, get tiles author and names, set backgrounds -->
                 <% books.forEach(book=>{ %>
-                    <div class="grid-item">
-                        <div class="content">
-                            <div><%=book.title%></div>
-                        <% authors.forEach(author=>{    %>
-                        <%    if (author.id === book.author.id) {   %>
-                        
-                                <div><%=author.name%></div>
-                        <%    } %>
-                        <% }); %>
-            <!-- 
-                        <div><%=book.isbn%></div>
-                        <div><%=book.description%></div>
-                        <div><%=book.publisher%></div>
-                        <div><%=book.yearOfPublication%></div>
-                        <div><%=book.coverImage%></div>
-                            -->
+                    <% let i = 0%>
+                    <%let pathToCover = book.coverImage.replace(/\\/g, "/").replace('public/', '');%>
+
+                    
+                    <div class="grid-item item-<%=i%>">
+                        <div class="thumb" style="background: url(<%=pathToCover%>) no-repeat center center; background-size: cover;"></div>
+                        <div class="book-info">
+                            <div><%= book.title %></div>
+                            <% authors.forEach(author=>{    %>
+                                <%    if (author.id === book.author.id) {   %>
+                                        <div><%=author.name%></div>
+                                <%    } %>
+                                <% }); %>
+                                <div class="add-info">
+                                    <div>
+                                        Average rating: 4.5
+                                    </div>
+                                    <div>
+                                        Read count: 400k
+                                    </div>
+                                </div>
                         </div>
                     </div>
+                    <% i++ %>
                 <% }); %>
-            
+
+
         </div>
     </div>
 </section>
