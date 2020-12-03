@@ -1,7 +1,7 @@
 const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
 
-exports.getBooks = async (req, res, next) => {
+const renderBooks = (req, foundBooks, authorsMid) => {
   let authFlag = false;
   let username = 'Guest';
 
@@ -9,6 +9,17 @@ exports.getBooks = async (req, res, next) => {
     authFlag = true;
     username = req.user.username;
   }
+
+  return {
+    isAuthenticated: authFlag,
+    isLogReg: false,
+    books: foundBooks,
+    userName: username,
+    authors: authorsMid,
+  }
+}
+
+exports.getBooks = async (req, res, next) => {
   let authorsMid = {};
   Author.find({}, (err, foundAuthors) => {
     if (err) {
@@ -21,14 +32,9 @@ exports.getBooks = async (req, res, next) => {
         if (err) {
           console.log(err);
         } else {
-          res.render('books', {
-            isAuthenticated: authFlag,
-            isLogReg: false,
-            books: foundBooks,
-            userName: username,
-            authors: authorsMid,
-          });
+          res.status(200).render('books', renderBooks(req, foundBooks, authorsMid));
         }
+          
       });
     }
   });
@@ -37,13 +43,17 @@ exports.getBooks = async (req, res, next) => {
 
 exports.createBook = async (req, res, next) => {
   if (req.isAuthenticated()) {
+    let coverPath;
+    req.file.path ? coverPath = null : coverPath = req.file.path;
+
     let book = new Book({
       title: req.body.title,
-      isbn: req.body.isbn,
       description: req.body.description,
-      publisher: req.body.publisher,
       yearOfPublication: req.body.yearOfPublication,
-      coverImage: req.file.path,
+      genre: req.body.genre,
+      coverImage: coverPath,
+      numberOfReads: 0,
+      numberOfreviews: 0,
     });
 
     const info = req.body.author;
@@ -54,6 +64,7 @@ exports.createBook = async (req, res, next) => {
         if (err) {
           console.log(err);
         } else {
+          // if an author has been found, his id will be books author id
           if (foundAuthor) {
             book.author = foundAuthor;
 
@@ -62,8 +73,6 @@ exports.createBook = async (req, res, next) => {
               {
                 title: book.title,
                 author: book.author,
-                isbn: book.isbn,
-                publisher: book.publisher,
               },
               (err, foundBook) => {
                 if (err) {
@@ -78,6 +87,7 @@ exports.createBook = async (req, res, next) => {
               }
             );
           } else {
+            // no author found, create one and store him
             const newAuthor = new Author({
               name: info,
             });

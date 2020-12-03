@@ -1,26 +1,28 @@
 <section class="book-section">
-    <div class="book-container">
-        <% books.forEach(book=>{ %>
-            <div class="book-row">
-                <div class="row">
-                    <div class="col-2 book book-title"><%=book.title%></div>
-                    
-    
-                    <% authors.forEach(author=>{    %>
-                    <%    if (author.id === book.author.id) {   %>
-                    
-                            <div class="col-2 book author"><%=author.name%></div>
-                    <%    } %>
-                    <% }); %>
-    
-                    <div class="col-1 book isbn"><%=book.isbn%></div>
-                    <div class="col-2 book description"><%=book.description%></div>
-                    <div class="col-2 book publisher"><%=book.publisher%></div>
-                    <div class="col-1 book year-of-publication"><%=book.yearOfPublication%></div>
-                    <div class="col-2 book cover"><%=book.picture%></div>
-                </div>
-            </div>
+    <div class="grid-wrapper">
+        <div class="grid-container">
             
-          <% }); %>
+                <% books.forEach(book=>{ %>
+                    <div class="grid-item">
+                        <div class="content">
+                            <div><%=book.title%></div>
+                        <% authors.forEach(author=>{    %>
+                        <%    if (author.id === book.author.id) {   %>
+                        
+                                <div><%=author.name%></div>
+                        <%    } %>
+                        <% }); %>
+            <!-- 
+                        <div><%=book.isbn%></div>
+                        <div><%=book.description%></div>
+                        <div><%=book.publisher%></div>
+                        <div><%=book.yearOfPublication%></div>
+                        <div><%=book.coverImage%></div>
+                            -->
+                        </div>
+                    </div>
+                <% }); %>
+            
+        </div>
     </div>
 </section>
