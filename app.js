@@ -66,6 +66,7 @@ const User = require('./models/userModel').User;
 const UserController = require('./controllers/userController');
 const ReviewController = require('./controllers/reviewController');
 const BookController = require('./controllers/bookController');
+const BookAPI = require('./api/bookAPI');
 
 passport.use(User.createStrategy());
 
@@ -98,6 +99,8 @@ app
   .route('/books')
   .get(BookController.getBooks)
   .post( upload.single('coverImage'), BookController.createBook);
+
+app.get('/bookAPI', BookAPI.getBooks);
 
 // handle non-existent URLs or internal errors
 app.use((req, res, next) => {

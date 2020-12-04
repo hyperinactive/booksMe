@@ -38,7 +38,7 @@ html,body
   color: #fff;
   text-align: center;
   font-size: 3.5rem;
-  padding: 15rem;
+  padding: 13rem;
 }
 
 .author {
@@ -47,7 +47,7 @@ html,body
 
 .main-books-btn {
   position: relative;
-  bottom: 5em;
+  bottom: 7em;
 }
 
 #breaker {
@@ -62,6 +62,32 @@ html,body
   height: 60em;
   background: url(../images/parallax-front-dark.jpg) no-repeat center right fixed;
   text-align: center;
+}
+
+.home-grid {
+  padding: 5rem;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.promo-book {
+  max-width: 35%;
+  border-radius: 1rem;
+}
+
+.promo-book-desc-background {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 1rem;
+  margin: 0 4rem;
+  padding: 0 0.4rem 0.4rem 0.4rem;
+}
+
+.promo-book-description {
+  text-align: left;
+  padding:  2rem;
+  color: #fff;
+  font-size: xx-large;
 }
 
 /* ---------------------------------------- */
@@ -88,6 +114,7 @@ html,body
   padding: 1rem;
   background-color: rgba(127, 221, 177, .6);
   border-radius: 15px 45px;
+  margin-bottom: 5rem;
 }
 
 .grid-container {
@@ -98,6 +125,7 @@ html,body
 }
 
 .grid-item {
+  cursor: pointer;
   text-align: center;
   font-size: larger;
   font-weight: 700;

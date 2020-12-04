@@ -44,8 +44,8 @@ exports.createBook = async (req, res, next) => {
       yearOfPublication: req.body.yearOfPublication,
       genre: req.body.genre,
       coverImage: coverPath,
-      numberOfReads: 0,
-      numberOfreviews: 0,
+      numberOfReviews: 0,
+      averageRating: 0,
     });
 
     const info = req.body.author;

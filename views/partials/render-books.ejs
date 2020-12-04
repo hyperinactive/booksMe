@@ -3,7 +3,7 @@
         <div class="grid-container">
             
             <!-- go through the books, get tiles author and names, set backgrounds -->
-                <% books.forEach(book=>{ %>
+                <!-- <% books.forEach(book=>{ %>
                     <% let i = 0%>
                     <%let pathToCover = book.coverImage.replace(/\\/g, "/").replace('public/', '');%>
 
@@ -12,23 +12,19 @@
                         <div class="thumb" style="background: url(<%=pathToCover%>) no-repeat center center; background-size: cover;"></div>
                         <div class="book-info">
                             <div><%= book.title %></div>
-                            <% authors.forEach(author=>{    %>
-                                <%    if (author.id === book.author.id) {   %>
-                                        <div><%=author.name%></div>
-                                <%    } %>
-                                <% }); %>
+                            <div><%=book.author.name%></div>
                                 <div class="add-info">
                                     <div>
-                                        Average rating: 4.5
+                                        Rating: <%= book.averageRating %>
                                     </div>
                                     <div>
-                                        Read count: 400k
+                                        Reviews: <%= book.numberOfReviews %>
                                     </div>
                                 </div>
                         </div>
                     </div>
                     <% i++ %>
-                <% }); %>
+                <% }); %> -->
 
 
         </div>

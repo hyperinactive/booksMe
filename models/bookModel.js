@@ -21,8 +21,8 @@ const bookSchema = new mongoose.Schema({
     required: true,
   },
   coverImage: String,
-  numberOfReads: Number,
-  numberOfReviews: Number
+  averageRating: Number,
+  numberOfReviews: Number,
 });
 
 const Book = new mongoose.model('Book', bookSchema);

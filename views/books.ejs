@@ -15,10 +15,7 @@
       <% } %>
       <div class="float-right">
         <div class="search-input input-group mb-3">
-          <input type="search" class="form-control" placeholder="Here" aria-label="Here" aria-describedby="basic-addon2">
-          <div class="input-group-append">
-            <span class="input-group-text" id="basic-addon2">Search</span>
-          </div>
+          <input type="search" class="form-control" placeholder="Search" aria-label="Here" aria-describedby="basic-addon2">
         </div>
         <!-- <button class="btn btn-dark search-btn" type="submit">Search</button> -->
       </div>
@@ -53,6 +50,7 @@
       </button>
     </form>
   </div>
+  <hr />
   <% } %> <%- include('partials/render-books') %>
 </div>
 
@@ -60,5 +58,5 @@
 <% if (isAuthenticated) { %>
 <script type="text/javascript" src="scripts/addBook.js"></script>
 <% } %>
-
+<script type="text/javascript" src="scripts/load.js"></script>
 <%- include('partials/footer') %>
