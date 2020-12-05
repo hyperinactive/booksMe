@@ -70,7 +70,7 @@ exports.createBook = async (req, res, next) => {
                   console.log(err);
                 } else {
                   if (foundBook) {
-                    res.send('Book already exists');
+                    res.status(418).send('Book already exists');
                   } else {
                     book.save();
                   }
@@ -86,7 +86,7 @@ exports.createBook = async (req, res, next) => {
             book.author = newAuthor;
             newAuthor.save();
             book.save();
-            res.redirect('/books');
+            res.status(201).redirect('/books');
           }
         }
       }

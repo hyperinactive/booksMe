@@ -50,8 +50,32 @@
   filter: grayscale(20%);
 }
 
+.hover-info {
+  padding: 0.5rem;
+  margin: 0.1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  position: relative;
+  float: right;
+  display: none;
+  z-index: -1;
+}
+
+.thumb:hover .hover-info {
+  transform: translate(50%, -20%);
+  display: block;
+}
+
+.thumb:hover .hover-rating {
+  color: #e76c81;
+}
+
 .book-info {
   margin: 1.5rem;
+}
+
+.book-author {
+  font-size: medium;
 }
 
 .add-info {

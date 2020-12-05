@@ -4,8 +4,6 @@ const Book = require('../models/bookModel').Book;
 
 exports.getBooks = async (req, res, next) => {
 
-  // console.log(req.body.limit, req.body.skip);
-
   const fbooks = await Book.find({}, (err, foundBooks) => {
     if (err) {
       return res.json({
@@ -15,5 +13,4 @@ exports.getBooks = async (req, res, next) => {
   }).skip(req.body.skip).limit(req.body.limit);
 
   res.status(200).json(fbooks)
-
 };

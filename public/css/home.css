@@ -58,13 +58,13 @@ html,body
 
 #detail-background {
   width: 100%;
-  height: 60em;
+  height: 55em;
   background: url(../images/parallax-front-dark.jpg) no-repeat center right fixed;
   text-align: center;
 }
 
 .home-grid {
-  padding: 5rem;
+  padding: 5rem 5rem 2rem 5rem;
   display: flex;
   flex-direction: row-reverse;
 }
