@@ -34,6 +34,7 @@ exports.getBooks = async (req, res, next) => {
 };
 
 exports.createBook = async (req, res, next) => {
+
   if (req.isAuthenticated()) {
     let coverPath;
     !req.file.path ? (coverPath = null) : (coverPath = req.file.path);

@@ -1,15 +1,25 @@
+let loadedBooks = 0;
+const rate = 8;
+
 const loadABook = async () => {
+  // hardcoded for now :(
   const url = 'http://localhost:3000/bookAPI';
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+  const data = {
+    limit: rate,
+    skip: loadedBooks,
+  };
 
-  const data = await fetch(url)
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
     .then((response) => response.json())
     .then((data) => {
       data.forEach((book) => {
-        console.log(book);
         const pathToCover = book.coverImage
           .replace(/\\/g, '/')
           .replace('public/', '');
@@ -31,6 +41,16 @@ const loadABook = async () => {
         $('.grid-container').append(bookItem);
       });
     });
+  loadedBooks += rate;
 };
 
 loadABook();
+
+// PRO: works
+// CON: will send requests to update even when there are no elements to load
+$(window).on("scroll", function () {
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    console.log('end of the road bud, or is it?');
+    loadABook();
+  }
+});

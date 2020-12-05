@@ -19,6 +19,7 @@ app.use(
     extended: true,
   })
 );
+app.use(bodyParser.json());
 
 app.use(morgan('dev'));
 
@@ -98,9 +99,9 @@ app
 app
   .route('/books')
   .get(BookController.getBooks)
-  .post( upload.single('coverImage'), BookController.createBook);
+  .post(upload.single('coverImage'), BookController.createBook);
 
-app.get('/bookAPI', BookAPI.getBooks);
+app.post('/bookAPI', BookAPI.getBooks);
 
 // handle non-existent URLs or internal errors
 app.use((req, res, next) => {
