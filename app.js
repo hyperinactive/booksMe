@@ -11,7 +11,10 @@ const morgan = require('morgan');
 
 const app = express();
 
-// config the templating engine, static folder and morgan
+// SETUP
+// ------------------------------------------------------
+
+// config the templating engine, static folder, bodyParser and morgan
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(
@@ -20,10 +23,9 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-
 app.use(morgan('dev'));
 
-// use cors
+// config corse
 app.use(cors());
 
 // config express sessions
@@ -35,13 +37,11 @@ app.use(
   })
 );
 
-// use passport
+// config passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 // connect to the database
-
 mongoose.connect(
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
   {
@@ -50,29 +50,37 @@ mongoose.connect(
   }
 );
 
+// deprecated error fix
 mongoose.set('useCreateIndex', true);
 
 mongoose.connection.on('connected', () => {
   console.log('connected to mongodb oh hell yea');
 });
-
 mongoose.connection.on('error', () => {
-  console.log('error connecting to mongodb oh hell yea');
+  console.log('error connecting to mongodb, oh hell yea');
 });
 
 
 // get modules
 const User = require('./models/userModel').User;
-
-const UserController = require('./controllers/userController');
-const ReviewController = require('./controllers/reviewController');
-const BookController = require('./controllers/bookController');
 const BookAPI = require('./api/bookAPI');
 
+// route modules
+const registerRoutes = require('./routes/userRoutes/registerRoutes');
+const loginRoutes = require('./routes/userRoutes/loginRoutes');
+const logoutRoutes = require('./routes/userRoutes/logoutRoutes');
+const bookRoutes = require('./routes/bookRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+
+// config passport
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+// ROUTE HANDLING
+// ------------------------------------------------------
 
 // landing page
 app.get('/', (req, res) => {
@@ -80,28 +88,23 @@ app.get('/', (req, res) => {
   res.render('home', { isAuthenticated: authFlag, isLogReg: false });
 });
 
-// handle users
-app
-  .route('/register')
-  .get(UserController.renderRegister)
-  .post(UserController.register);
-app.route('/login').get(UserController.renderLogin).post(UserController.login);
-app.get('/logout', UserController.logout);
+// handle user routes
+app.use('/register', registerRoutes);
+app.use('/login', loginRoutes);
+app.use('/books', bookRoutes);
+app.use('/logout/', logoutRoutes);
 
 // handle reviews
-app
-  .route('/reviews')
-  .get(ReviewController.getReviews)
-  .post(ReviewController.createReview)
-  .delete(ReviewController.deleteReview);
+app.use('/reviews', reviewRoutes);
 
 // handle books
-app
-  .route('/books')
-  .get(BookController.getBooks)
-  .post(upload.single('coverImage'), BookController.createBook);
+app.use('/books', bookRoutes);
 
 app.post('/bookAPI', BookAPI.getBooks);
+
+
+// HOPE CODE NEVER REACHES THIS PART
+// ------------------------------------------------------
 
 // handle non-existent URLs or internal errors
 app.use((req, res, next) => {

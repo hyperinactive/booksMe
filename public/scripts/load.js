@@ -29,7 +29,6 @@ const requestLoading = async () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       // if the last payload turned out empty, no more items are to be requested
 
       data.data.forEach((book) => {
