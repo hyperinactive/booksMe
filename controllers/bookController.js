@@ -75,7 +75,7 @@ exports.createBook = async (req, res, next) => {
                     book.save();
                   }
                 }
-                res.redirect('/books');
+                res.status(308).redirect('/books');
               }
             );
           } else {

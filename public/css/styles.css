@@ -87,6 +87,16 @@
   margin: 2%;
 }
 
+.loader-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.loader {
+  padding: 0.5rem;
+  margin: 1rem;
+}
+
 .review {
   background-color: rgba(127, 221, 177, .6);
   border-radius: 15px 45px;
