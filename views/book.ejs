@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Books:ME</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="../public/css/book-page.css">
+</head>
+
+<body>
+
+<%- include('partials/navbar') %>
+
+<!-- ugh, I'm afraid it wouldn't work any other way -->
+<% const pathToCover = '../' +  book.coverImage.replace(/\\/g, '/'); %>
+
+  <div class="book-card-wrapper">
+    <div class="cover" style="background: url(<%=pathToCover%>) no-repeat center center; background-size: cover;">
+    </div>
+    <div class="info-wrapper">
+      <p><%= book.title %></p>
+      <p><%= book.author.name %></p>
+      <p><%= book.genre %></p>
+      <p><%= book.yearOfPublication %></p>
+      <p><%= book.averageRating %></p>
+      <p><%= book.numberOfReviews %></p>
+    </div>
+    </div>
+  </div>
+
+<%- include('partials/footer') %>

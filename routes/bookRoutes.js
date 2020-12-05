@@ -7,5 +7,6 @@ const BookController = require('../controllers/bookController');
 
 router.get('/', BookController.getBooks);
 router.post('/', upload.single('coverImage'), BookController.createBook);
+router.get('/:bookID', BookController.getBook);
 
 module.exports = router;

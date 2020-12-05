@@ -34,7 +34,6 @@ exports.getBooks = async (req, res, next) => {
 };
 
 exports.createBook = async (req, res, next) => {
-
   if (req.isAuthenticated()) {
     let coverPath;
     !req.file.path ? (coverPath = null) : (coverPath = req.file.path);
@@ -96,4 +95,25 @@ exports.createBook = async (req, res, next) => {
       error: 'Invalid user',
     });
   }
+};
+
+exports.getBook = async (req, res, next) => {
+  let authFlag = false;
+  let username = 'Guest';
+
+  if (req.isAuthenticated()) {
+    authFlag = true;
+    username = req.user.username;
+  }
+
+  const foundBook = await Book.findById(req.params.bookID);
+
+  res.status(200).render('book', {
+    book: foundBook,
+    isAuthenticated: authFlag,
+    isLogReg: false,
+  });
+
+  // res.status(200).json(foundBook);
+
 };

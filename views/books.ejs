@@ -9,14 +9,15 @@
   <div class="col-12">
     <div class="search-bar">
       <% if (isAuthenticated) { %>
-      <button class="add-books-button btn btn-dark btn-outline-info">
+      <button class="add-books-button btn btn-danger">
         Add a book, now!
       </button>
       <% } %>
       <div class="float-right">
-        <div class="search-input input-group mb-3">
-          <input type="search" class="form-control" placeholder="Search" aria-label="Here" aria-describedby="basic-addon2">
-        </div>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
         <!-- <button class="btn btn-dark search-btn" type="submit">Search</button> -->
       </div>
     </div>
@@ -45,7 +46,7 @@
       <input type="file" class="from-control" name="coverImage" style="display: block;" />
       <hr />
 
-      <button class="btn btn-dark" type="submit" style="margin: 0.5%">
+      <button class="btn btn-danger" type="submit" style="margin: 0.5%">
         Add a book
       </button>
     </form>

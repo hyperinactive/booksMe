@@ -1,0 +1,17 @@
+.book-card-wrapper {
+  margin: 5rem;
+  display: flex;
+}
+
+.cover {
+  width: 30rem;
+  height: 30rem;
+  border-radius: 0.8em;
+  border: 1rem solid #04767a;
+  border-right: 1rem solid #cc1800;
+  border-bottom: 1rem solid #cc1800;
+}
+
+.info-wrapper {
+  margin: 4rem;
+}

@@ -1,4 +1,5 @@
-// loaded books isn't the actual number of loaded books
+document.addEventListener("DOMContentLoaded", function(){
+  // loaded books isn't the actual number of loaded books
 // it's an offset for the db
 let loadedBooks = 0;
 const rate = 8;
@@ -31,25 +32,30 @@ const requestLoading = async () => {
     .then((data) => {
       // if the last payload turned out empty, no more items are to be requested
 
+      // <button class="btn-danger page-btn" type="submit">Page</button>
+
       data.data.forEach((book) => {
         const pathToCover = book.coverImage
           .replace(/\\/g, '/')
           .replace('public/', '');
-        const bookItem = `<div class="grid-item">
+        const bookItem = `<form action="/books/${book._id}" method="get">
+        <div class="grid-item" onClick="javascript:this.parentNode.submit();">
           <div class="thumb" style="background: url(${pathToCover}) no-repeat center center; background-size: cover;">
-          <div class="hover-info hover-rating">${book.averageRating}</div>
-          <div class="hover-info hover-reviews">${book.numberOfReviews}</div>
+            <div class="hover-info hover-rating">${book.averageRating}</div>
+            <div class="hover-info hover-reviews">${book.numberOfReviews}</div>
           </div>
+          
           <div class="book-info">
             <div>${book.title}</div>
             <div class="book-author">by ${book.author.name}</div>
           </div>
-      </div>`;
+        </div>
+      </form>`;
         $('.grid-container').append(bookItem);
       });
       if (data.empty === true) {
         isEmpty = true;
-        $('.loader').html('Please, no more');
+        $('.loader').html('Please, no more x(');
         return;
       }
     });
@@ -68,6 +74,9 @@ requestLoading();
 //   }
 // });
 
-$('.loader').on('click', () => {
-  requestLoading();
+  $('.loader').on('click', () => {
+    requestLoading();
+  });
+
 });
+

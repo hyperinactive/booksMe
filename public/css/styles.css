@@ -18,8 +18,9 @@
 }
 
 #add-book {
+  color: #fff;
   padding: 1rem;
-  background-color: rgba(127, 221, 177, .6);
+  background-color: #989899;
   border-radius: 15px 45px;
   margin-bottom: 5rem;
 }
@@ -41,8 +42,11 @@
 .thumb {
   filter: grayscale(80%);
   height: 20rem;
-  border-radius: 0.5em;
-  border: #04767a solid;
+  min-width: 12rem;
+  border-radius: 0.8em;
+  border: 0.4rem solid #04767a;
+  border-right: 0.4rem solid #cc1800;
+  border-bottom: 0.4rem solid #cc1800;
 }
 
 .thumb:hover {
@@ -61,6 +65,12 @@
   z-index: -1;
 }
 
+.page-btn {
+  display: none;
+  position: relative;
+  z-index: -1;
+}
+
 .thumb:hover .hover-info {
   transform: translate(50%, -20%);
   display: block;
@@ -68,6 +78,11 @@
 
 .thumb:hover .hover-rating {
   color: #e76c81;
+}
+
+.thumb:hover .page-btn {
+  display: block;
+  
 }
 
 .book-info {

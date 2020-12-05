@@ -8,6 +8,7 @@ const passport = require('passport');
 const cors = require('cors');
 const upload = require('./middleware/multer');
 const morgan = require('morgan');
+const path = require('path');
 
 const app = express();
 
@@ -15,7 +16,14 @@ const app = express();
 // ------------------------------------------------------
 
 // config the templating engine, static folder, bodyParser and morgan
+// I HATE YOU EXPRESS, I'll learn Koa I swear
+// ok, so the default middleware is pointing to the public folder as the default path to static stuff
+// but if called from another location which is not root
+// it won't grant access, and a new middleware is needed with the provided path for the route calling
 app.use(express.static('public'));
+app.use('/books/:bookID', express.static('public'))
+
+
 app.set('view engine', 'ejs');
 app.use(
   bodyParser.urlencoded({
