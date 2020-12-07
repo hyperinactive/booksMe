@@ -1,4 +1,3 @@
-const bookModel = require('../models/bookModel');
 const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
 

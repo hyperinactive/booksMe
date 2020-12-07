@@ -45,8 +45,6 @@
   min-width: 12rem;
   border-radius: 0.8em;
   border: 0.4rem solid #04767a;
-  border-right: 0.4rem solid #cc1800;
-  border-bottom: 0.4rem solid #cc1800;
 }
 
 .thumb:hover {

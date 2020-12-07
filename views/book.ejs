@@ -20,14 +20,41 @@
     <div class="cover" style="background: url(<%=pathToCover%>) no-repeat center center; background-size: cover;">
     </div>
     <div class="info-wrapper">
-      <p><%= book.title %></p>
-      <p><%= book.author.name %></p>
-      <p><%= book.genre %></p>
-      <p><%= book.yearOfPublication %></p>
-      <p><%= book.averageRating %></p>
-      <p><%= book.numberOfReviews %></p>
+
+      <div class="info-group">
+        <div class="title"><%= book.title %></div>        
+      </div>
+
+      <div class="info-group">
+      <div class="author">by <%= book.author.name %></div>
+      <div class="genre">genre: <%= book.genre %></div>
+      <div class="yearOfPublication">published: <%= book.yearOfPublication %></div>
+    </div>
+
+      <div class="info-group">
+        <div class="description"><%= book.description %></div>
+      </div>
+      
+      
+      <div class="info-group">
+        <div class="averageRating" style="display: inline;">rating: <%= book.averageRating %></div>
+        <div class="numberOfReviews" style="display: inline;">reviews: <%= book.numberOfReviews %></div>
+      </div>
     </div>
     </div>
   </div>
 
+  <div class="reviews-wrapper">
+    <h2>REVIEWS</h2>
+  </div>
+  <div class="grid-container">
+    <!-- this is where the reviews will go -->
+    <!-- loader will fill this up -->
+  </div>
+  
+  <div class="load">
+    <button class="btn-danger">Load more Reviews</button>
+  </div>
+  
+<script type="text/javascript" src="../public/scripts/loadReviews.js"></script>
 <%- include('partials/footer') %>

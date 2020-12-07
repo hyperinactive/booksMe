@@ -37,7 +37,7 @@ exports.createReview = async (req, res, next) => {
 
     const review = new Review({
       rev: req.body.review,
-      grade: req.body.rating,
+      rating: req.body.rating,
       user: req.user.username,
     });
 
@@ -49,6 +49,9 @@ exports.createReview = async (req, res, next) => {
       } else {
         if (foundBook) {
           review.book = foundBook;
+          foundBook.numberOfReviews++;
+          foundBook.averageRating = (foundBook.averageRating + review.rating) / foundBook.numberOfReviews;
+          foundBook.save();
           review.save();
         } else {
           console.log('No such book exists');
@@ -58,6 +61,7 @@ exports.createReview = async (req, res, next) => {
   } else {
     console.log('Only registered users can enter data');
   }
+  res.status(302).redirect('reviews')
 };
 
 exports.deleteReview = async (req, res, next) => {

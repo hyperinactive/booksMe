@@ -3,8 +3,9 @@
   display: flex;
 }
 
-.cover {
-  width: 30rem;
+.cover { 
+  display: inline-block;
+  min-width: 30rem;
   height: 30rem;
   border-radius: 0.8em;
   border: 1rem solid #04767a;
@@ -13,5 +14,31 @@
 }
 
 .info-wrapper {
-  margin: 4rem;
+  color: #fff;
+  margin: 0 4rem;
+  padding: 2rem 4rem;
+  width: 60%;
+  border-radius: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.info-group {
+  padding: 1rem 0.5rem;
+  margin: 0.5rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 0.8rem;
+}
+
+.title {
+  width: 50%;
+  font-size: xx-large;
+  margin: 1rem 0;
+}
+
+.reviews-wrapper {
+  text-align: center;
+}
+
+.load {
+  text-align: center;
 }
