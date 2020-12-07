@@ -21,6 +21,10 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  timestamp: {
+    type: Date,
+    required: true,
+  }
 });
 
 const Review = new mongoose.model('Review', reviewSchema);

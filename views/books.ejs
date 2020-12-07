@@ -39,7 +39,7 @@
       <label for="genre">genre</label>
       <input type="text" class="form-control" name="genre" required />
       <label for="description">description</label>
-      <input type="text" class="form-control" name="description" required />
+      <textarea type="text" class="form-control" name="description" required></textarea>
       <label for="yearOfPublication">year of publication</label>
       <input type="number" class="form-control" name="yearOfPublication" required />
       <label for="coverImage">cover</label>
@@ -57,6 +57,11 @@
     <button class="btn-danger loader">Load More</button>
   </div>
 </div>
+
+<hr>
+<footer class="container">
+  <p>&copy; <i>ME:</i>Books</p>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <% if (isAuthenticated) { %>

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const loadReviews = () => {
   let loadedReviews = 0;
-  const rate = 8;
+  const rate = 16;
   let isEmpty = false;
 
   const requestLoading = async () => {
@@ -44,17 +44,27 @@ const loadReviews = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // if the last payload turned out empty, no more items are to be requested
-
-        // <button class="btn-danger page-btn" type="submit">Page</button>
-
         data.data.forEach((review) => {
+
+          date = new Date(review.timestamp).getDate().toString();
+          month = new Date(review.timestamp).getMonth().toString();
+          year = new Date(review.timestamp).getFullYear().toString();
+
+          formattedTimestampString = `${date}/${month}/${year}`
+
           const reviewItem = `
-          <div class="grid-item>
-            <div">
-              <div>${review.rating}</div>
+          <form action="/reviews/${review._id}" method="get">
+            <div class="grid-item" onClick="javascript:this.parentNode.submit();">
+              <div class="review rev">
+                <div>${review.rev.length >= 100 ? review.rev.substr(0,99).toString().concat('...') : review.rev }</div>
+              </div>
             </div>
-          </div>`;
+            <div class="review-stats rev">
+              <div class="user">${review.user}</div>
+              <div>${formattedTimestampString}</div>
+              <div class="rating">${review.rating}</div>
+            </div>
+          </form>`;
           $('.grid-container').append(reviewItem);
         });
         if (data.empty === true) {

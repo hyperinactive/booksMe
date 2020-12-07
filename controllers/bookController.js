@@ -46,6 +46,7 @@ exports.createBook = async (req, res, next) => {
       coverImage: coverPath,
       numberOfReviews: 0,
       averageRating: 0,
+      reviewPoints: 0,
     });
 
     const info = req.body.author;

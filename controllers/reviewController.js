@@ -39,6 +39,7 @@ exports.createReview = async (req, res, next) => {
       rev: req.body.review,
       rating: req.body.rating,
       user: req.user.username,
+      timestamp: Date.now(),
     });
 
     const tit = req.body.re.toString();
@@ -50,7 +51,8 @@ exports.createReview = async (req, res, next) => {
         if (foundBook) {
           review.book = foundBook;
           foundBook.numberOfReviews++;
-          foundBook.averageRating = (foundBook.averageRating + review.rating) / foundBook.numberOfReviews;
+          foundBook.reviewPoints += review.rating;
+          foundBook.averageRating = foundBook.reviewPoints / foundBook.numberOfReviews;
           foundBook.save();
           review.save();
         } else {

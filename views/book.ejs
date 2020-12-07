@@ -18,43 +18,48 @@
 
   <div class="book-card-wrapper">
     <div class="cover" style="background: url(<%=pathToCover%>) no-repeat center center; background-size: cover;">
-    </div>
-    <div class="info-wrapper">
+      </div>
+      <div class="info-wrapper">
 
-      <div class="info-group">
-        <div class="title"><%= book.title %></div>        
+        <div class="info-group">
+          <div class="title"><%= book.title %></div>        
+        </div>
+
+        <div class="info-group">
+        <div class="author">by <%= book.author.name %></div>
+        <div class="genre">genre: <%= book.genre %></div>
+        <div class="yearOfPublication">published: <%= book.yearOfPublication %></div>
       </div>
 
-      <div class="info-group">
-      <div class="author">by <%= book.author.name %></div>
-      <div class="genre">genre: <%= book.genre %></div>
-      <div class="yearOfPublication">published: <%= book.yearOfPublication %></div>
-    </div>
+        <div class="info-group">
+          <div class="averageRating" style="display: inline;">rating: <%= book.averageRating % 1 === 0 ? book.averageRating : book.averageRating.toFixed(2) %></div>
+          <div class="numberOfReviews" style="display: inline;">reviews: <%= book.numberOfReviews %></div>
+        </div>
 
-      <div class="info-group">
-        <div class="description"><%= book.description %></div>
-      </div>
-      
-      
-      <div class="info-group">
-        <div class="averageRating" style="display: inline;">rating: <%= book.averageRating %></div>
-        <div class="numberOfReviews" style="display: inline;">reviews: <%= book.numberOfReviews %></div>
       </div>
     </div>
+    <div class="info-group desc">
+      <div class="description"><%= book.description %></div>
     </div>
   </div>
 
   <div class="reviews-wrapper">
     <h2>REVIEWS</h2>
   </div>
-  <div class="grid-container">
-    <!-- this is where the reviews will go -->
-    <!-- loader will fill this up -->
+  <div class="grid-wrapper">
+    <div class="grid-container">
+      <!-- this is where the reviews will go -->
+      <!-- loader will fill this up -->
+    </div>
+    <div class="load">
+      <button class="btn-danger loader">Load more Reviews</button>
+    </div>  
   </div>
-  
-  <div class="load">
-    <button class="btn-danger">Load more Reviews</button>
-  </div>
+
+  <hr>
+  <footer class="container">
+    <p>&copy; <i>ME:</i>Books</p>
+  </footer>
   
 <script type="text/javascript" src="../public/scripts/loadReviews.js"></script>
 <%- include('partials/footer') %>

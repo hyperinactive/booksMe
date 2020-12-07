@@ -21,6 +21,7 @@ const bookSchema = new mongoose.Schema({
     required: true,
   },
   coverImage: String,
+  reviewPoints: Number,
   averageRating: Number,
   numberOfReviews: Number,
 });
