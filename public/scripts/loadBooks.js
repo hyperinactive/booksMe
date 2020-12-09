@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // search params object
+  // search params object - provide to request body
     // -------------------------------
   globals = {
     loadedBooks: 0,
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // -------------------------------
 
 
-  // Intersect Observer
+  // Intersect Observer - if the footer is intersecting try and load more data
   // -------------------------------
   options = {
     root: null,
@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
   observer.observe(document.querySelector('footer'));
   // -------------------------------
 
+  // search button event 
+  $('#search-btn').click(() => {
+    console.log('sanity check - click');
 
-  $('#search').click(() => {
-    console.log('clicked');
-
-    // assume the client want to reset the whole thing
+    // reset the globals and set the input to the search key
     resetSearchParams();
     globals.search = $('#search-input').val();
 
@@ -54,6 +54,13 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(globals);
     console.log('------------------------------');
     $('.grid-container').html('');
+
+    // don't touch, or else...
+    $('footer').addClass('footer-hack');
+    setTimeout(() => {
+      $('footer').removeClass('footer-hack');
+    }, 200);
+
 
     // stop uncommenting this, the observer will call it automatically when the wrapper gets emptied
     // loadBooks()

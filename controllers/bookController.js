@@ -36,7 +36,7 @@ exports.getBooks = async (req, res, next) => {
 exports.createBook = async (req, res, next) => {
   if (req.isAuthenticated()) {
     let coverPath;
-    !req.file.path ? (coverPath = null) : (coverPath = req.file.path);
+    req.file === undefined ? coverPath = 'public/images/default_cover.jpg' : coverPath = req.file.path;
 
     let book = new Book({
       title: req.body.title,

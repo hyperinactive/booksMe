@@ -1,7 +1,9 @@
 /* BOOKS */
 
 .search-bar {
-  margin: 0 2%;
+  width: 100%;
+  margin: 2rem 0;
+  padding: 0 2rem;
 }
 
 .search-input {
@@ -14,6 +16,11 @@
 
 .greetings {
   margin: 2%;
+}
+
+#add-book-button {
+  display: block;
+  margin: auto 0.5rem;
 }
 
 #add-book {
@@ -98,14 +105,9 @@
   margin: 2%;
 }
 
-.loader-wrapper {
-  width: 100%;
-  text-align: center;
-}
-
-.loader {
-  padding: 0.5rem;
-  margin: 1rem;
+.footer-hack {
+  position: relative;
+  top: 100rem;
 }
 
 .review {

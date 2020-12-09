@@ -5,24 +5,25 @@
   <h3>Hello, <i><%=userName%></i></h3>
 </div>
 
-<div class="row">
-  <div class="col-12">
-    <div class="search-bar">
-      <% if (isAuthenticated) { %>
-      <button class="add-books-button btn btn-danger">
-        Add a book, now!
-      </button>
-      <% } %>
-      <div class="float-right">
-        <div class="form-inline my-2 my-lg-0">
-          <input id="search-input" class="form-control mr-sm-3" type="text" placeholder="GO GO" aria-label="GO GO">
-          <button id="search" class="btn btn-secondary my-2 my-sm-0">Search</button>
-        </div>
-        <!-- <button class="btn btn-dark search-btn" type="submit">Search</button> -->
+
+<section id="search">
+  <div class="search-bar">
+    <div class="search-box">
+      <div class="form-inline my-2 my-lg-0">
+        <input id="search-input" class="form-control mr-sm-3" type="text" placeholder="GO GO" aria-label="GO GO">
+        <button id="search-btn" class="btn btn-secondary my-2 my-sm-0">Search</button>
+        <% if (isAuthenticated) { %>
+          <button id="add-book-button" class="btn btn-danger">
+            Add a book, now!
+          </button>
+          <% } %>
       </div>
+      <!-- <button class="btn btn-dark search-btn" type="submit">Search</button> -->
     </div>
+    
   </div>
-</div>
+</section>
+
 
 <div class="container">
   
@@ -33,17 +34,17 @@
   <div id="add-book" style="display: none">
     <form action="/books" enctype="multipart/form-data" method="post">
       <label for="title">title</label>
-      <input type="text" class="form-control" name="title" required />
+      <input type="text" class="form-control empty-me" name="title" required />
       <label for="author">author</label>
-      <input type="text" class="form-control" name="author" required />
+      <input type="text" class="form-control empty-me" name="author" required />
       <label for="genre">genre</label>
-      <input type="text" class="form-control" name="genre" required />
+      <input type="text" class="form-control empty-me" name="genre" required />
       <label for="description">description</label>
-      <textarea type="text" class="form-control" name="description" required></textarea>
+      <textarea type="text" class="form-control empty-me" name="description" required></textarea>
       <label for="yearOfPublication">year of publication</label>
-      <input type="number" class="form-control" name="yearOfPublication" required />
+      <input type="number" class="form-control empty-me" name="yearOfPublication" required />
       <label for="coverImage">cover</label>
-      <input type="file" class="from-control" name="coverImage" style="display: block;" />
+      <input type="file" class="from-control empty-me" name="coverImage" style="display: block;" />
       <hr />
 
       <button class="btn btn-danger" type="submit" style="margin: 0.5%">
