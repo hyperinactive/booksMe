@@ -10,7 +10,7 @@ exports.getBooks = async (req, res, next) => {
     }
   });
 
-  const fbooks = await Book.find({}, (err, foundBooks) => {
+  const fbooks = await Book.find({}, null, { sort: { _id: req.body.sort } }, (err, foundBooks) => {
     if (err) {
       return res.json({
         error: err,

@@ -1,62 +1,74 @@
-document.addEventListener("DOMContentLoaded", function () {
-  console.log('sanity check');
-  loadReviews();
- });
-
-
-// DRY!?!?!?
-
-// todo: maybe reuse the loadBooks script and send different responses based on the input?
-
-const loadReviews = () => {
+document.addEventListener('DOMContentLoaded', function () {
   let loadedReviews = 0;
   const rate = 16;
   let isEmpty = false;
 
-  const requestLoading = async () => {
-    // if the db has no more items to send, don't send any more requests
-    if (isEmpty === true) {
-      return;
+  options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5,
+  };
+
+  const handleIntersect = (entries) => {
+    if (entries[0].isIntersecting) {
+      console.warn('Bottomn reached - Loading data');
+      loadReviews();
     }
+  };
 
-    // get the current site url and append the bookAPI route
-    const location = window.location.href;
-    const tmp = location.split('/');
-    // console.log(tmp);
-    const url = tmp[0] + '//' + tmp[2] + '/reviews/' + tmp[4];
+  const observer = new IntersectionObserver(handleIntersect, options);
+  observer.observe(document.querySelector('footer'));
 
-    // console.log(`URL: ${url}`);
-    // http://localhost:3000/books/5fc93214dd2ae74334c47ce6/
+  // DRY!?!?!?
 
+  // todo: maybe reuse the loadBooks script and send different responses based on the input?
 
+  const loadReviews = () => {
+    const requestLoading = async () => {
+      // if the db has no more items to send, don't send any more requests
+      if (isEmpty === true) {
+        return;
+      }
 
-    const data = {
-      limit: rate,
-      skip: loadedReviews,
-    };
+      // get the current site url and append the bookAPI route
+      const location = window.location.href;
+      const tmp = location.split('/');
+      // console.log(tmp);
+      const url = tmp[0] + '//' + tmp[2] + '/reviews/' + tmp[4];
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        data.data.forEach((review) => {
+      // console.log(`URL: ${url}`);
+      // http://localhost:3000/books/5fc93214dd2ae74334c47ce6/
 
-          date = new Date(review.timestamp).getDate().toString();
-          month = new Date(review.timestamp).getMonth().toString();
-          year = new Date(review.timestamp).getFullYear().toString();
+      const data = {
+        limit: rate,
+        skip: loadedReviews,
+      };
 
-          formattedTimestampString = `${date}/${month}/${year}`
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          data.data.forEach((review) => {
+            date = new Date(review.timestamp).getDate().toString();
+            month = new Date(review.timestamp).getMonth().toString();
+            year = new Date(review.timestamp).getFullYear().toString();
 
-          const reviewItem = `
+            formattedTimestampString = `${date}/${month}/${year}`;
+
+            const reviewItem = `
           <form action="/reviews/${review._id}" method="get">
             <div class="grid-item" onClick="javascript:this.parentNode.submit();">
               <div class="review rev">
-                <div>${review.rev.length >= 100 ? review.rev.substr(0,99).toString().concat('...') : review.rev }</div>
+                <div>${
+                  review.rev.length >= 100
+                    ? review.rev.substr(0, 99).toString().concat('...')
+                    : review.rev
+                }</div>
               </div>
             </div>
             <div class="review-stats rev">
@@ -65,19 +77,16 @@ const loadReviews = () => {
               <div class="rating">${review.rating}</div>
             </div>
           </form>`;
-          $('.grid-container').append(reviewItem);
+            $('.grid-container').append(reviewItem);
+          });
+          if (data.empty === true) {
+            isEmpty = true;
+            return;
+          }
         });
-        if (data.empty === true) {
-          isEmpty = true;
-          $('.loader').html('Please, no more x(');
-          return;
-        }
-      });
-    loadedReviews += rate;
-  };
+      loadedReviews += rate;
+    };
 
-  requestLoading();
-  $('.loader').on('click', () => {
     requestLoading();
-  });
-}
+  };
+});
