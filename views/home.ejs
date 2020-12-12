@@ -1,108 +1,131 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Books:ME</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>Books:ME</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/home.css">
-</head>
+  <body>
+    <%- include('partials/navbar') %>
 
-<body>
-<%- include('partials/navbar') %>
-
-<div id="main-background">
-  <!-- carousel -->
-  <div
-    id="sliding-text-carousel"
-    class="carousel slide"
-    data-ride="carousel"
-    data-interval="6000"
-  >
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="quote d-block w-100" atl="First slide">
-          <p>
-            “He who seeks does not find, but he who does not seek will be
-            found.”
-          </p>
-          <p class="author">Franz Kafka</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="quote d-block w-100" atl="Second slide">
-          <p>“The scariest moment is always just before you start.”</p>
-          <p class="author">Stephen King</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="quote d-block w-100" atl="Third slide">
-          <p>
-            “Kids, you tried your best and you failed miserably. The lesson is,
-            never try."
-          </p>
-          <p class="author">Homer Simpson</p>
-        </div>
-      </div>
-    </div>
-    <div class="main-books-btn">
-      <a class="btn btn-danger btn-lg b" href="/books" role="button"
-        >Check out them books</a
+    <div id="main-background">
+      <!-- carousel -->
+      <div
+        id="sliding-text-carousel"
+        class="carousel slide"
+        data-ride="carousel"
+        data-interval="6000"
       >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="quote d-block w-100" atl="First slide">
+              <p>
+                “He who seeks does not find, but he who does not seek will be
+                found.”
+              </p>
+              <p class="author">Franz Kafka</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="quote d-block w-100" atl="Second slide">
+              <p>“The scariest moment is always just before you start.”</p>
+              <p class="author">Stephen King</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="quote d-block w-100" atl="Third slide">
+              <p>
+                “Kids, you tried your best and you failed miserably. The lesson
+                is, never try."
+              </p>
+              <p class="author">Homer Simpson</p>
+            </div>
+          </div>
+        </div>
+        <div class="main-books-btn">
+          <a class="btn btn-danger btn-lg b" href="/books" role="button"
+            >Check out them books</a
+          >
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- call for action -->
-<div class="jumbotron centered">
-  <div class="container">
-    <figure>
-      <img
-        class="mb-4 figure-img img-fluid rounded"
-        src="images/logo.jpg"
-        width="288"
-        height="288"
-      />
-      <figcaption class="figure-caption">artwork by Kyoung Hwan Kim</figcaption>
-    </figure>
-    <div>
-      <h1 class="display-3">Books: <i>ME</i></h1>
-      <p class="lead">Gimme your books!</p>
+    <!-- call for action -->
+    <div class="jumbotron centered">
+      <div class="container">
+        <figure>
+          <img
+            class="mb-4 figure-img img-fluid rounded"
+            src="images/logo.jpg"
+            width="288"
+            height="288"
+          />
+          <figcaption class="figure-caption">
+            artwork by Kyoung Hwan Kim
+          </figcaption>
+        </figure>
+        <div>
+          <h1 class="display-3">Books: <i>ME</i></h1>
+          <p class="lead">Gimme your books!</p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- breaker div -->
-<div id="breaker">
-  <div>
-    <a class="btn btn-light btn-lg b" href="/register" role="button"
-      >Register</a
-    >
-    <a class="btn btn-danger btn-lg b" href="/login" role="button">Login</a>
-  </div>
-</div>
-
-<div id="detail-background" class="parallax">
-  <div>
-    <a class="btn btn-danger btn-lg b" href="/books" role="button">Books</a>
-    <a class="btn btn-light btn-lg b" href="/reviews" role="button">Reviews</a>
-  </div>
-  <div class="home-grid">
-    <div class="promo-book-desc-background">
-      <p class="promo-book-description">
-        Jack Torrance's new job at the Overlook Hotel is the perfect chance for
-        a fresh start. As the off-season caretaker at the atmospheric old hotel,
-        he'll have plenty of time to spend reconnecting with his family and
-        working on his writing. But as the harsh winter weather sets in, the
-        idyllic location feels ever more remote...and more sinister. And the
-        only one to notice the strange and terrible forces gathering around the
-        Overlook is Danny Torrance, a uniquely gifted five-year-old.
-      </p>
-      <a class="btn btn-danger btn-lg b" href="/books" role="button">Books</a>
+    <!-- breaker div -->
+    <div id="breaker">
+      <div>
+        <a class="btn btn-light btn-lg b" href="/register" role="button"
+          >Register</a
+        >
+        <a class="btn btn-danger btn-lg b" href="/login" role="button">Login</a>
+      </div>
+      <div>
+        <a class="btn btn-danger btn-lg b" href="/books" role="button">Books</a>
+        <a class="btn btn-light btn-lg b" href="/reviews" role="button">Reviews</a>
+      </div>
     </div>
-    <img class="promo-book" src="/images/shining.jpg" alt="" />
-  </div>
-</div>
 
-<%- include('partials/footer') %>
+    <div id="detail-background" class="parallax">
+
+      <div class="home-grid">
+        <div class="promo-book-desc-background">
+          <p class="promo-book-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet
+            mattis vulputate enim nulla aliquet porttitor lacus. Suspendisse
+            potenti nullam ac tortor vitae purus faucibus ornare suspendisse.
+            Amet mattis vulputate enim nulla aliquet porttitor lacus. Eget est
+            lorem ipsum dolor sit amet consectetur adipiscing elit. Sit amet
+            aliquam id diam maecenas ultricies mi eget. Mauris rhoncus aenean
+            vel elit scelerisque. Nunc vel risus commodo viverra maecenas.
+            Consectetur adipiscing elit ut aliquam purus sit amet luctus.
+            Pretium lectus quam id leo in vitae turpis massa. Lorem ipsum dolor
+            sit amet consectetur adipiscing. In nibh mauris cursus mattis
+            molestie a iaculis at. Magna eget est lorem ipsum. Mattis molestie a
+            iaculis at erat pellentesque adipiscing commodo. Tincidunt id
+            aliquet risus feugiat. In tellus integer feugiat scelerisque varius
+            morbi enim nunc faucibus. Felis eget velit aliquet sagittis. Turpis
+            massa tincidunt dui ut ornare lectus sit amet est.
+          </p>
+          <a class="btn btn-danger btn-lg b" href="/books/5fce5ffb57c0dd0c880a408e/">Check me out!</a>
+        </div>
+        <img class="promo-book" src="/uploads/1607360507308HKN2a.jpg" alt="promo-cover" />
+      </div>
+    </div>
+
+    <%- include('partials/footer') %>
+  </body>
+</html>

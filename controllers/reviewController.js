@@ -29,6 +29,17 @@ exports.renderReviews = async (req, res, next) => {
   
 };
 
+exports.renderReview = async (req, res, next) => {
+  try {
+    const review = await Review.findOne({_id: req.params.reviewID}) 
+
+    res.status(200).json(review);
+
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 exports.createReview = async (req, res, next) => {
   let authFlag = false;
   let username = 'Guest';

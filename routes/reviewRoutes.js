@@ -8,6 +8,7 @@ router.get('/', ReviewController.renderReviews);
 router.post('/', ReviewController.createReview);
 router.delete('/', ReviewController.deleteReview);
 
+router.get('/:reviewID', ReviewController.renderReview);
 router.post('/:bookID', ReviewAPI.getReviewsSingleBook);
 
 module.exports = router;
