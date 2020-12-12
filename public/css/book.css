@@ -39,6 +39,11 @@
   margin: 5rem 15rem;
 }
 
+#add-review {
+  padding: 10rem;
+  width: 100%
+}
+
 #add-review-btn {
   margin: 2rem;
 }

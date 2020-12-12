@@ -20,39 +20,6 @@
           This is where we give writers a firm kick in the nuts for being a
           bunch of talentless bums! (~This gives meaning to my life~)
         </p>
-        <% if (isAuthenticated) { %>
-        <div class="form">
-          <form action="/reviews" method="post">
-            <div>
-              <div>
-                <label for="re">Book</label>
-
-                <div>
-                  <select name="re">
-                    <% books.forEach(book=>{ %>
-                    <option value="<%=book.title%>"><%=book.title%></option>
-                    <% }); %>
-                  </select>
-                </div>
-                <div>
-                  <label for="review">Review:</label>
-                </div>
-              </div>
-              <textarea
-                name="review"
-                cols="100"
-                rows="6"
-                placeholder="Write your review here, peasant!"
-              ></textarea>
-            </div>
-            <label for="rating">Rating: </label>
-            <input type="number" name="rating" placeholder="1-5" />
-            <div>
-              <button class="btn btn-dark" type="submit">Post the review</button>
-            </div>
-          </form>
-        </div>
-        <% } %>
       </div>
     </div>
 

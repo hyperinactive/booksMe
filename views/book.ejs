@@ -50,11 +50,12 @@
       <button id="add-review-btn" class="btn btn-danger">Write a review</button>
       <hr />
       <div id="add-review" style="display: none">
-        <form action="/reviews" enctype="multipart/form-data" method="post">
+        <form action="/reviews" method="post">
+          <input type="text" value="<%= book._id %>" name="book_id" style="display: none;">
           <label for="description">review</label>
-          <textarea type="text" class="form-control empty-me" name="description" placeholder="Write down what you think!" required></textarea>
+          <textarea rows="7" cols="50" type="text" class="form-control empty-me" name="review" placeholder="Write down what you think!" required></textarea>
           <label for="rating">rating</label>
-          <input type="text" placeholder="1-5" name="rating">
+          <input class=" form-control emopty-me" type="number" placeholder="1-5" name="rating">
           <hr />
     
           <button class="btn btn-danger" type="submit" style="margin: 0.5%">

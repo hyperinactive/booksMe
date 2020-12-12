@@ -1,31 +1,32 @@
 const Book = require('../models/bookModel').Book;
 const Review = require('../models/reviewModel').Review;
 
-exports.getReviews = async (req, res, next) => {
+exports.renderReviews = async (req, res, next) => {
   let authFlag = false;
   let username = 'Guest';
   if (req.isAuthenticated()) {
     authFlag = true;
     username = req.user.username;
   }
-  Book.find({}, (err, foundBooks) => {
+  Review.find({}, (err, foundReviews) => {
     if (err) {
-      console.log(err);
+      return res.status(500).json(err);
+    }
+    if (foundReviews) {
+      res.render('reviews', {
+        reviews: foundReviews,
+        isLogReg: false,
+        isAuthenticated: authFlag,
+      });
     } else {
-      Review.find({}, (err, foundReviews) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.render('reviews', {
-            reviews: foundReviews,
-            books: foundBooks,
-            isLogReg: false,
-            isAuthenticated: authFlag,
-          });
-        }
+      res.render('reviews', {
+        reviews: {},
+        isLogReg: false,
+        isAuthenticated: authFlag,
       });
     }
   });
+  
 };
 
 exports.createReview = async (req, res, next) => {
@@ -42,11 +43,12 @@ exports.createReview = async (req, res, next) => {
       timestamp: Date.now(),
     });
 
-    const tit = req.body.re.toString();
+    console.log(req.body);
 
-    Book.findOne({ title: tit }, (err, foundBook) => {
+    Book.findOne({_id: req.body.book_id}, (err, foundBook) => {
       if (err) {
-        return res.status(500).json(err);
+        // return res.status(500).json(err);
+        console.log(err);
       } else {
         if (foundBook) {
           review.book = foundBook;
@@ -63,9 +65,10 @@ exports.createReview = async (req, res, next) => {
   } else {
     console.log('Only registered users can enter data');
   }
-  res.status(302).redirect('reviews')
+  res.status(302).redirect('reviews');
 };
 
+// todo - upon deletion, update the book stats
 exports.deleteReview = async (req, res, next) => {
   if (isAuthenticated) {
     username = req.user.username;
