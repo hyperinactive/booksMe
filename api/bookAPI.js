@@ -12,7 +12,7 @@ exports.getBooks = async (req, res, next) => {
 
   if (searchParam !== '/(?:)/i') {
     query = {
-      $or: [{ title: searchParam }, { author: searchParam }],
+      $or: [{ title: searchParam }, { 'author.name': searchParam  }],
     };
   }
 
@@ -21,20 +21,22 @@ exports.getBooks = async (req, res, next) => {
     count
   ) {
     if (err) {
-      console.log(err);
+      return res.status(500).json({
+        error: err,
+      });
     }
   });
 
   const fbooks = await Book.find(query, (err, foundBooks) => {
     if (err) {
-      return res.json({
+      return res.status(500).json({
         error: err,
       });
     }
   })
     .skip(req.body.loadedBooks)
     .limit(req.body.rate)
-    .sort(null);
+    .sort({_id: -1});
 
   // if the last of the items' shipped, send a flag to stop sending requests
   return numberOfElements <= req.body.rate + req.body.loadedBooks

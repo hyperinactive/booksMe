@@ -1,7 +1,7 @@
 const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
 
-exports.getBooks = async (req, res, next) => {
+exports.renderBooks = async (req, res, next) => {
   let authFlag = false;
   let username = 'Guest';
 
@@ -9,27 +9,10 @@ exports.getBooks = async (req, res, next) => {
     authFlag = true;
     username = req.user.username;
   }
-
-  let authorsMid = {};
-  Author.find({}, (err, foundAuthors) => {
-    if (err) {
-      console.log(err);
-    } else {
-      authorsMid = foundAuthors;
-      Book.find({}, (err, foundBooks) => {
-        if (err) {
-          console.log(err);
-        } else {
-          res.render('books', {
-            isAuthenticated: authFlag,
-            isLogReg: false,
-            books: foundBooks,
-            userName: username,
-            authors: authorsMid,
-          });
-        }
-      });
-    }
+  res.render('books', {
+    isAuthenticated: authFlag,
+    isLogReg: false,
+    userName: username,
   });
 };
 
@@ -114,7 +97,4 @@ exports.getBook = async (req, res, next) => {
     isAuthenticated: authFlag,
     isLogReg: false,
   });
-
-  // res.status(200).json(foundBook);
-
 };

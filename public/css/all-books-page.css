@@ -101,24 +101,10 @@
   font-weight: 400;
 }
 
-.add-b {
-  margin: 2%;
-}
-
+/* not to be touched */
 .footer-hack {
   position: relative;
   top: 100rem;
-}
-
-.review {
-  background-color: rgba(127, 221, 177, 0.6);
-  border-radius: 15px 45px;
-  width: 80%;
-  max-height: 80%;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-between;
-  justify-items: left;
 }
 
 .register-img {

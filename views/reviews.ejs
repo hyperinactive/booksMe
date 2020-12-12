@@ -1,57 +1,68 @@
-<%- include('partials/header') %> 
-<%- include('partials/navbar') %>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-<main role="main">
-  <div class="jumbotron">
-    <div class="container">
-      <h1 class="display-3"><i>ME:</i>Reviewer</h1>
-      <p>
-        This is where we give writers a firm kick in the nuts for being a
-        bunch of talentless bums! (~This gives meaning to my life~)
-      </p>
-      <% if (isAuthenticated) { %>
-      <div class="form">
-        <form action="/reviews" method="post">
-          <div>
+<head>
+  <meta charset="utf-8">
+  <title>Books:ME</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/reviews.css">
+</head>
+
+<body>
+  <%- include('partials/navbar') %>
+
+  <main role="main">
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-3"><i>ME:</i>Reviewer</h1>
+        <p>
+          This is where we give writers a firm kick in the nuts for being a
+          bunch of talentless bums! (~This gives meaning to my life~)
+        </p>
+        <% if (isAuthenticated) { %>
+        <div class="form">
+          <form action="/reviews" method="post">
             <div>
-              <label for="re">Book</label>
+              <div>
+                <label for="re">Book</label>
 
-              <div>
-                <select name="re">
-                  <% books.forEach(book=>{ %>
-                  <option value="<%=book.title%>"><%=book.title%></option>
-                  <% }); %>
-                </select>
+                <div>
+                  <select name="re">
+                    <% books.forEach(book=>{ %>
+                    <option value="<%=book.title%>"><%=book.title%></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div>
+                  <label for="review">Review:</label>
+                </div>
               </div>
-              <div>
-                <label for="review">Review:</label>
-              </div>
+              <textarea
+                name="review"
+                cols="100"
+                rows="6"
+                placeholder="Write your review here, peasant!"
+              ></textarea>
             </div>
-            <textarea
-              name="review"
-              cols="100"
-              rows="6"
-              placeholder="Write your review here, peasant!"
-            ></textarea>
-          </div>
-          <label for="rating">Rating: </label>
-          <input type="number" name="rating" placeholder="1-5" />
-          <div>
-            <button class="btn btn-dark" type="submit">Post the review</button>
-          </div>
-        </form>
+            <label for="rating">Rating: </label>
+            <input type="number" name="rating" placeholder="1-5" />
+            <div>
+              <button class="btn btn-dark" type="submit">Post the review</button>
+            </div>
+          </form>
+        </div>
+        <% } %>
       </div>
-      <% } %>
     </div>
-  </div>
 
-  <%- include('partials/render-reviews') %>
+    <%- include('partials/render-reviews') %>
 
-  </div>
-</main>
+    </div>
+  </main>
 
-<footer class="container">
-  <p>&copy; <i>ME:</i>Reviews</p>
-</footer>
+  <footer class="container">
+    <p>&copy; <i>ME:</i>Reviews</p>
+  </footer>
 
-<%- include('partials/footer') %>
+  <%- include('partials/footer') %>

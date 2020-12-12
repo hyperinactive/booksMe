@@ -39,6 +39,10 @@
   margin: 5rem 15rem;
 }
 
+#add-review-btn {
+  margin: 2rem;
+}
+
 .reviews-wrapper {
   text-align: center;
 }
@@ -80,12 +84,4 @@
 
 .user {
   display: inline;
-}
-
-.load {
-  text-align: center;
-}
-
-.loader {
-  margin: 4rem;
 }

@@ -46,7 +46,7 @@ exports.createReview = async (req, res, next) => {
 
     Book.findOne({ title: tit }, (err, foundBook) => {
       if (err) {
-        console.log(err);
+        return res.status(500).json(err);
       } else {
         if (foundBook) {
           review.book = foundBook;
@@ -56,7 +56,7 @@ exports.createReview = async (req, res, next) => {
           foundBook.save();
           review.save();
         } else {
-          console.log('No such book exists');
+          return res.status(404).send('No book found');
         }
       }
     });
@@ -70,6 +70,6 @@ exports.deleteReview = async (req, res, next) => {
   if (isAuthenticated) {
     username = req.user.username;
   } else {
-    res.send('Not authenticated!');
+    res.status(401).send('Not authenticated!');
   }
 };
