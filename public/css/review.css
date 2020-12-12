@@ -1,0 +1,8 @@
+#review-wrapper {
+  width: 100%;
+  margin: auto;
+  padding: 10rem 35rem;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}

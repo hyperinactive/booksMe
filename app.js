@@ -18,7 +18,8 @@ const app = express();
 // but if called from another location which is not root
 // it won't grant access, and a new middleware is needed with the provided path for the route calling
 app.use(express.static('public'));
-app.use('/books/:bookID', express.static('public'))
+app.use('/books/:bookID', express.static('public'));
+app.use('/reviews/:reviewID', express.static('public'));
 
 
 app.set('view engine', 'ejs');

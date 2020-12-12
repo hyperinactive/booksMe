@@ -26,15 +26,24 @@ exports.renderReviews = async (req, res, next) => {
       });
     }
   });
-  
 };
 
 exports.renderReview = async (req, res, next) => {
+  let authFlag = false;
+  let username = 'Guest';
+  if (req.isAuthenticated()) {
+    authFlag = true;
+    username = req.user.username;
+  }
+
   try {
-    const review = await Review.findOne({_id: req.params.reviewID}) 
+    const review = await Review.findOne({ _id: req.params.reviewID });
 
-    res.status(200).json(review);
-
+    res.status(200).render('review', {
+      review: review,
+      isLogReg: false,
+      isAuthenticated: authFlag,
+    });
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -56,7 +65,7 @@ exports.createReview = async (req, res, next) => {
 
     console.log(req.body);
 
-    Book.findOne({_id: req.body.book_id}, (err, foundBook) => {
+    Book.findOne({ _id: req.body.book_id }, (err, foundBook) => {
       if (err) {
         // return res.status(500).json(err);
         console.log(err);
@@ -65,7 +74,8 @@ exports.createReview = async (req, res, next) => {
           review.book = foundBook;
           foundBook.numberOfReviews++;
           foundBook.reviewPoints += review.rating;
-          foundBook.averageRating = foundBook.reviewPoints / foundBook.numberOfReviews;
+          foundBook.averageRating =
+          foundBook.reviewPoints / foundBook.numberOfReviews;
           foundBook.save();
           review.save();
         } else {
