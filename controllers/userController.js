@@ -22,7 +22,7 @@ exports.renderLogin = async (req, res, next) => {
     alreadyLoggedFlag = true;
   }
   let logRegFlag = true;
-  res.render('register', {
+  res.render('login', {
     isLogReg: logRegFlag,
     isAuthenticated: alreadyLoggedFlag,
     callType: 'login',
