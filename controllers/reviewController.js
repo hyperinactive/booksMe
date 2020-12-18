@@ -3,10 +3,10 @@ const Review = require('../models/reviewModel').Review;
 
 exports.renderReviews = async (req, res, next) => {
   let authFlag = false;
-  let username = 'Guest';
+  let user = 'Guest';
   if (req.isAuthenticated()) {
     authFlag = true;
-    username = req.user.username;
+    user = req.user;
   }
   Review.find({}, (err, foundReviews) => {
     if (err) {
@@ -17,12 +17,14 @@ exports.renderReviews = async (req, res, next) => {
         reviews: foundReviews,
         isLogReg: false,
         isAuthenticated: authFlag,
+        user: user,
       });
     } else {
       res.render('reviews', {
         reviews: {},
         isLogReg: false,
         isAuthenticated: authFlag,
+        user: user,
       });
     }
   });
@@ -30,10 +32,10 @@ exports.renderReviews = async (req, res, next) => {
 
 exports.renderReview = async (req, res, next) => {
   let authFlag = false;
-  let username = 'Guest';
+  let user = 'Guest';
   if (req.isAuthenticated()) {
     authFlag = true;
-    username = req.user.username;
+    user = req.user;
   }
 
   try {
@@ -43,18 +45,20 @@ exports.renderReview = async (req, res, next) => {
       review: review,
       isLogReg: false,
       isAuthenticated: authFlag,
+      user: user,
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error);
   }
 };
 
 exports.createReview = async (req, res, next) => {
   let authFlag = false;
-  let username = 'Guest';
+  let user = 'Guest';
   if (req.isAuthenticated()) {
     authFlag = true;
-    username = req.user.username;
+    username = req.user;
 
     const review = new Review({
       rev: req.body.review,
@@ -92,7 +96,7 @@ exports.createReview = async (req, res, next) => {
 // todo - upon deletion, update the book stats
 exports.deleteReview = async (req, res, next) => {
   if (isAuthenticated) {
-    username = req.user.username;
+    username = req.user;
   } else {
     res.status(401).send('Not authenticated!');
   }

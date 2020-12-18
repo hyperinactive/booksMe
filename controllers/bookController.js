@@ -3,16 +3,16 @@ const Book = require('../models/bookModel').Book;
 
 exports.renderBooks = async (req, res, next) => {
   let authFlag = false;
-  let username = 'Guest';
+  let user = 'Guest';
 
   if (req.isAuthenticated()) {
     authFlag = true;
-    username = req.user.username;
+    user = req.user;
   }
   res.render('books', {
     isAuthenticated: authFlag,
     isLogReg: false,
-    userName: username,
+    user: user,
   });
 };
 
@@ -83,11 +83,11 @@ exports.createBook = async (req, res, next) => {
 
 exports.getBook = async (req, res, next) => {
   let authFlag = false;
-  let username = 'Guest';
+  let user = 'Guest';
 
   if (req.isAuthenticated()) {
     authFlag = true;
-    username = req.user.username;
+    user = req.user;
   }
 
   const foundBook = await Book.findById(req.params.bookID);
@@ -96,5 +96,6 @@ exports.getBook = async (req, res, next) => {
     book: foundBook,
     isAuthenticated: authFlag,
     isLogReg: false,
+    user: user,
   });
 };

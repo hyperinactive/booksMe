@@ -15,4 +15,7 @@ router.post('/register', UserController.register);
 // handle logout
 router.get('/logout', UserController.logout);
 
+// handle direct user route calls
+router.get('/:userID', UserController.renderUser);
+
 module.exports = router;

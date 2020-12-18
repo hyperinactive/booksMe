@@ -71,12 +71,6 @@ mongoose.connection.on('error', () => {
 // get modules
 const User = require('./models/userModel').User;
 const BookAPI = require('./api/bookAPI');
-
-// route modules
-// const registerRoutes = require('./routes/userRoutes/registerRoutes');
-// const loginRoutes = require('./routes/userRoutes/loginRoutes');
-// const logoutRoutes = require('./routes/userRoutes/logoutRoutes');
-
 const userRoutes = require('./routes/userRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
@@ -93,15 +87,16 @@ passport.deserializeUser(User.deserializeUser());
 
 // landing page
 app.get('/', (req, res) => {
-  req.isAuthenticated() ? (authFlag = true) : (authFlag = false);
-  res.render('home', { isAuthenticated: authFlag, isLogReg: false });
+  let authFlag = false;
+  let user = 'Guest';
+  if (req.isAuthenticated()) {
+    authFlag = true;
+    user = req.user;
+  }
+  res.render('home', { isAuthenticated: authFlag, user: user });
 });
 
-// // handle user routes
-// app.use('/register', registerRoutes);
-// app.use('/login', loginRoutes);
-// app.use('/books', bookRoutes);
-// app.use('/logout/', logoutRoutes);
+// handle user routes
 app.use('/user', userRoutes);
 
 
