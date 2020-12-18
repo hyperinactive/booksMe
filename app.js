@@ -18,6 +18,7 @@ const app = express();
 // but if called from another location which is not root
 // it won't grant access, and a new middleware is needed with the provided path for the route calling
 app.use(express.static('public'));
+app.use('/user', express.static('public'));
 app.use('/books/:bookID', express.static('public'));
 app.use('/reviews/:reviewID', express.static('public'));
 
@@ -72,9 +73,11 @@ const User = require('./models/userModel').User;
 const BookAPI = require('./api/bookAPI');
 
 // route modules
-const registerRoutes = require('./routes/userRoutes/registerRoutes');
-const loginRoutes = require('./routes/userRoutes/loginRoutes');
-const logoutRoutes = require('./routes/userRoutes/logoutRoutes');
+// const registerRoutes = require('./routes/userRoutes/registerRoutes');
+// const loginRoutes = require('./routes/userRoutes/loginRoutes');
+// const logoutRoutes = require('./routes/userRoutes/logoutRoutes');
+
+const userRoutes = require('./routes/userRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 
@@ -94,11 +97,13 @@ app.get('/', (req, res) => {
   res.render('home', { isAuthenticated: authFlag, isLogReg: false });
 });
 
-// handle user routes
-app.use('/register', registerRoutes);
-app.use('/login', loginRoutes);
-app.use('/books', bookRoutes);
-app.use('/logout/', logoutRoutes);
+// // handle user routes
+// app.use('/register', registerRoutes);
+// app.use('/login', loginRoutes);
+// app.use('/books', bookRoutes);
+// app.use('/logout/', logoutRoutes);
+app.use('/user', userRoutes);
+
 
 // handle reviews
 app.use('/reviews', reviewRoutes);

@@ -90,3 +90,13 @@ body {
 .check-out-btn {
   margin: 2rem;
 }
+
+
+@media (min-height: 1366px) {
+  .promo-book-description {
+    font-size: 1.1rem;
+  }
+  #detail-background {
+    height: 70rem;
+  }
+}

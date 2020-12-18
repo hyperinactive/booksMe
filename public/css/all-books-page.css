@@ -51,11 +51,7 @@
   min-width: 12rem;
   border-radius: 0.8em;
   border: 0.4rem solid #04767a;
-}
-
-.thumb:hover {
-  transform: scale(1.03) translateX(3%);
-  filter: grayscale(20%);
+  transition: 0.1s ease-in;
 }
 
 .hover-info {
@@ -67,6 +63,7 @@
   float: right;
   display: none;
   z-index: -1;
+  transition: 0.2s ease-out;
 }
 
 .page-btn {
@@ -81,11 +78,16 @@
 }
 
 .thumb:hover .hover-rating {
-  color: #e76c81;
+  color: #879ad8;
 }
 
 .thumb:hover .page-btn {
   display: block;
+}
+
+.thumb:hover {
+  transform: scale(1.03) translateX(3%);
+  filter: grayscale(20%);
 }
 
 .book-info {

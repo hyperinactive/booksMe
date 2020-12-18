@@ -1,5 +1,5 @@
 .book-card-wrapper {
-  margin: 5rem 5rem;
+  margin: 5rem 15rem;
   display: flex;
 }
 
@@ -15,7 +15,8 @@
 
 .info-wrapper {
   color: #fff;
-  margin: 0 4rem;
+  margin: 0;
+  margin-left: 1rem;
   padding: 2rem 4rem;
   width: 100%;
   border-radius: 0.8rem;
@@ -62,6 +63,14 @@
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   gap: 0.5rem;
   width: 100%;
+}
+
+.grid-item {
+  transition: transform 0.1s ease-in;
+}
+
+.grid-item:hover {
+  transform: scale(1.04);
 }
 
 .review {

@@ -70,12 +70,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     : review.rev
                 }</div>
               </div>
-            </div>
-            <div class="review-stats rev">
+
+              <div class="review-stats rev">
               <div class="user">${review.user}</div>
               <div>${formattedTimestampString}</div>
               <div class="rating">${review.rating}</div>
+              
             </div>
+            </div>
+            
           </form>`;
             $('.grid-container').append(reviewItem);
           });
