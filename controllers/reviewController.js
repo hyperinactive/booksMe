@@ -76,7 +76,7 @@ exports.createReview = async (req, res, next) => {
 // todo - upon deletion, update the book stats
 exports.deleteReview = async (req, res, next) => {
   if (isAuthenticated) {
-    username = req.user;
+    // todo
   } else {
     res.status(401).send('Not authenticated!');
   }

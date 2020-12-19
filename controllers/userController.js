@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/userModel').User;
+const Review = require('../models/reviewModel').Review;
 
 exports.renderRegister = async (req, res, next) => {
   res.render('register', {
@@ -68,8 +69,15 @@ exports.login = (req, res, next) => {
   });
 };
 
-exports.renderUser = async (req, res, next) => {
-  res.status(200).json(req.params.userID);
+exports.userReviews = async (req, res, next) => {
+
+  const fReviews = await Review.find({ 'user._id': req.params.bookID });
+
+  res.status(200).render('userReviews', {
+    isAuthenticated: res.locals.userAuth,
+    user: res.locals.user,
+    reviews: fReviews,
+  });
 }
 
 exports.logout = async (req, res, next) => {

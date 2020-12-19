@@ -1,0 +1,35 @@
+<%- include('partials/header') %> <%- include('partials/navbar') %>
+<link rel="stylesheet" href="css/userReviews.css" />
+
+<div class="greetings">
+  <h3>Hello, <i><%= user.username %></i></h3>
+</div>
+
+<hr />
+
+<div id="flex-wrapper">
+  <div id="flex-container">
+    <!-- this is where the user reviews load in -->
+    <% reviews.forEach(review=>{ %>
+    <div class="review">
+      <h2><%=review.book.title%></h2>
+	  <% if (review.rev.length >= 100) { %>
+	  <% let str = `${review.rev.substr(0,99)} ...`; %>
+      <p><%=str%></p>
+      <% } else { %>
+      <p><%=review.rev%></p>
+      <% } %>
+	  <p><%=review.user%></p>
+    <button id="delete" class="btn btn-danger" name="<%= review._id %>">Delete</button>
+
+    </div>
+    <% }); %>
+  </div>
+</div>
+
+<hr />
+<footer class="container">
+  <p>&copy; <i>ME:</i>Books</p>
+</footer>
+
+<%- include('partials/footer') %>

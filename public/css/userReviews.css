@@ -1,0 +1,8 @@
+#flex-wrapper {
+	margin: 1.2rem;
+}
+
+#flex-container {
+	display: flex;
+	flex-direction: column;
+}

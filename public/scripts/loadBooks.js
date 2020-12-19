@@ -117,7 +117,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <form action="/books/${book._id}" method="get">
               <div class="grid-item" onClick="javascript:this.parentNode.submit();">
                 <div class="thumb" style="background: url(${pathToCover}) no-repeat center center; background-size: cover;">
-                  <div class="hover-info hover-rating">${
+                  
+                <div class="hover-info hover-rating">${
                     book.averageRating % 1 === 0
                       ? book.averageRating
                       : book.averageRating.toFixed(2)

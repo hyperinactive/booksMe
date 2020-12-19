@@ -19,6 +19,7 @@ const app = express();
 // it won't grant access, and a new middleware is needed with the provided path for the route calling
 app.use(express.static('public'));
 app.use('/user', express.static('public'));
+app.use('/user/:userID', express.static('public'));
 app.use('/books/:bookID', express.static('public'));
 app.use('/reviews/:reviewID', express.static('public'));
 
@@ -89,7 +90,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // landing page
 app.get('/', authenticationMiddleware, (req, res) => {
-  res.render('home', { isAuthenticated: res.locals.userAuth, user: res.locals.user || 'Guest' });
+  res.render('home', { isAuthenticated: res.locals.userAuth, user: res.locals.user});
 });
 
 // handle user routes

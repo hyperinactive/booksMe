@@ -3,10 +3,7 @@ const Book = require('../models/bookModel').Book;
 
 exports.getBooks = async (req, res, next) => {
   // you're not making this easy, mongoose... just give me the count of stuff
-
-  console.log(req.body);
   const searchParam = new RegExp(req.body.search, 'i');
-  console.log(searchParam);
 
   let query = {};
 
