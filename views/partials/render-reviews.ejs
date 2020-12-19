@@ -4,7 +4,7 @@
     <div class="row">
       <% reviews.forEach(review=>{ %>
       <div class="col-md-4 review">
-        <h2><%=review.book.title%></h2>
+        <h2><%= review.book.title %> - [ <%= review.rating %> ]</h2>
         <!--If the review is too long ~20 words or less please-->
         <% if (review.rev.length >= 100) {  %>
           <% let str = `${review.rev.substr(0,99)} ...`; %>
@@ -12,7 +12,7 @@
         <% } else { %>
         <p><%=review.rev%></p>
         <% } %>
-        <p><%=review.user%></p>
+        <div>by <%=review.user%></div>
       </div>
       <% }); %>
     </div>

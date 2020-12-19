@@ -16,7 +16,10 @@ $(document).ready(() => {
 			fetch(url, {
 				method: 'DELETE',
 			}).then((response) => response.json()).then(data => {
-				console.log(data);
+				if (data) {
+					console.log(data);
+					e.target.parentElement.remove();
+				}
 			})
 			
 		} else {

@@ -15,9 +15,9 @@
   <div id="review-wrapper">
     <h2><%= review.book.title %></h2>
     <hr>
-    <p><%= review.rev %></p>
-    <p><%= review.rating %></p>
-    <p><%= review.user %></p>
+    <p><b>review</b>: <%= review.rev %></p>
+    <p><b>rating</b>: <%= review.rating %></p>
+    <p>by <%= review.user %></p>
   </div> 
 
   <%- include('partials/footer') %>

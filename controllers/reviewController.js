@@ -58,8 +58,7 @@ exports.createReview = async (req, res, next) => {
           review.book = foundBook;
           foundBook.numberOfReviews++;
           foundBook.reviewPoints += review.rating;
-          foundBook.averageRating =
-          foundBook.reviewPoints / foundBook.numberOfReviews;
+          foundBook.averageRating = foundBook.reviewPoints / foundBook.numberOfReviews;
           foundBook.save();
           review.save();
         } else {
@@ -70,17 +69,32 @@ exports.createReview = async (req, res, next) => {
   } else {
     console.log('Only registered users can enter data');
   }
-  res.status(302).redirect('reviews');
+  res.status(302).redirect(`user/${res.locals.user._id}`);
 };
 
 // todo - upon deletion, update the book stats
 exports.deleteReview = async (req, res, next) => {
   if (res.locals.userAuth) {
-    res.status(200).json({
-      message: 'Okay',
-      review: req.params.reviewID,
-    })
-  } else {
-    res.status(401).send('Not authenticated!');
-  }
+    
+    try {
+      Review.findOneAndDelete({ id: req.params.id }, (err, fReview) => {
+        if (fReview) {
+          Book.findOne({ id: req.params.id }, (err, fBook) => {
+            if (fBook) {
+              fBook.reviewPoints -= fReview.rating;
+              fBook.numberOfReviews--;
+              fBook.averageRating = fBook.reviewPoints / fBook.numberOfReviews;
+              fBook.save()
+
+              res.status(200).json({ fReview: fReview, fBook: fBook });
+            }
+          });
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
+  };
+
 };
