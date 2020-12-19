@@ -67,6 +67,8 @@ mongoose.connection.on('error', () => {
   console.log('error connecting to mongodb, oh hell yea');
 });
 
+// get authentication middleware
+const authenticationMiddleware = require('./middleware/authenticate');
 
 // get modules
 const User = require('./models/userModel').User;
@@ -86,25 +88,19 @@ passport.deserializeUser(User.deserializeUser());
 // ------------------------------------------------------
 
 // landing page
-app.get('/', (req, res) => {
-  let authFlag = false;
-  let user = 'Guest';
-  if (req.isAuthenticated()) {
-    authFlag = true;
-    user = req.user;
-  }
-  res.render('home', { isAuthenticated: authFlag, user: user });
+app.get('/', authenticationMiddleware, (req, res) => {
+  res.render('home', { isAuthenticated: res.locals.userAuth, user: res.locals.user || 'Guest' });
 });
 
 // handle user routes
-app.use('/user', userRoutes);
+app.use('/user', authenticationMiddleware, userRoutes);
 
 
 // handle reviews
-app.use('/reviews', reviewRoutes);
+app.use('/reviews', authenticationMiddleware, reviewRoutes);
 
 // handle books
-app.use('/books', bookRoutes);
+app.use('/books', authenticationMiddleware, bookRoutes);
 
 app.post('/bookAPI', BookAPI.getBooks);
 

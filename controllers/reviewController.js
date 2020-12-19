@@ -2,12 +2,6 @@ const Book = require('../models/bookModel').Book;
 const Review = require('../models/reviewModel').Review;
 
 exports.renderReviews = async (req, res, next) => {
-  let authFlag = false;
-  let user = 'Guest';
-  if (req.isAuthenticated()) {
-    authFlag = true;
-    user = req.user;
-  }
   Review.find({}, (err, foundReviews) => {
     if (err) {
       return res.status(500).json(err);
@@ -15,37 +9,27 @@ exports.renderReviews = async (req, res, next) => {
     if (foundReviews) {
       res.render('reviews', {
         reviews: foundReviews,
-        isLogReg: false,
-        isAuthenticated: authFlag,
-        user: user,
+        isAuthenticated: res.locals.userAuth,
+        user: res.locals.user,
       });
     } else {
       res.render('reviews', {
         reviews: {},
-        isLogReg: false,
-        isAuthenticated: authFlag,
-        user: user,
+        isAuthenticated: res.locals.userAuth,
+        user: res.locals.user,
       });
     }
   });
 };
 
 exports.renderReview = async (req, res, next) => {
-  let authFlag = false;
-  let user = 'Guest';
-  if (req.isAuthenticated()) {
-    authFlag = true;
-    user = req.user;
-  }
-
   try {
     const review = await Review.findOne({ _id: req.params.reviewID });
 
     res.status(200).render('review', {
       review: review,
-      isLogReg: false,
-      isAuthenticated: authFlag,
-      user: user,
+      isAuthenticated: res.locals.userAuth,
+      user: res.locals.user,
     });
   } catch (error) {
     console.log(error);
@@ -54,11 +38,7 @@ exports.renderReview = async (req, res, next) => {
 };
 
 exports.createReview = async (req, res, next) => {
-  let authFlag = false;
-  let user = 'Guest';
-  if (req.isAuthenticated()) {
-    authFlag = true;
-    username = req.user;
+  if (res.locals.userAuth) {
 
     const review = new Review({
       rev: req.body.review,

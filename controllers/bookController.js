@@ -2,22 +2,14 @@ const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
 
 exports.renderBooks = async (req, res, next) => {
-  let authFlag = false;
-  let user = 'Guest';
-
-  if (req.isAuthenticated()) {
-    authFlag = true;
-    user = req.user;
-  }
   res.render('books', {
-    isAuthenticated: authFlag,
-    isLogReg: false,
-    user: user,
+    isAuthenticated: res.locals.userAuth,
+    user: res.locals.user,
   });
 };
 
 exports.createBook = async (req, res, next) => {
-  if (req.isAuthenticated()) {
+  if (res.locals.userAuth) {
     let coverPath;
     req.file === undefined ? coverPath = 'public/images/default_cover.jpg' : coverPath = req.file.path;
 
@@ -82,20 +74,11 @@ exports.createBook = async (req, res, next) => {
 };
 
 exports.getBook = async (req, res, next) => {
-  let authFlag = false;
-  let user = 'Guest';
-
-  if (req.isAuthenticated()) {
-    authFlag = true;
-    user = req.user;
-  }
-
   const foundBook = await Book.findById(req.params.bookID);
 
   res.status(200).render('book', {
     book: foundBook,
-    isAuthenticated: authFlag,
-    isLogReg: false,
-    user: user,
+    isAuthenticated: res.locals.userAuth,
+    user: res.locals.user,
   });
 };

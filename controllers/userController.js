@@ -2,33 +2,16 @@ const passport = require('passport');
 const User = require('../models/userModel').User;
 
 exports.renderRegister = async (req, res, next) => {
-  let user = 'Guest';
-  let alreadyLoggedFlag = false;
-  if (req.isAuthenticated()) {
-    alreadyLoggedFlag = true;
-    user = req.user;
-  }
-  let logRegFlag = true;
   res.render('register', {
-    isLogReg: logRegFlag,
-    isAuthenticated: alreadyLoggedFlag,
-    user: user,
+    isAuthenticated: res.locals.userAuth,
+    user: res.locals.user,
   });
 };
 
 exports.renderLogin = async (req, res, next) => {
-  let alreadyLoggedFlag = false;
-  let user = "Guest";
-  if (req.isAuthenticated()) {
-    alreadyLoggedFlag = true;
-    user = req.user;
-  }
-  let logRegFlag = true;
   res.render('login', {
-    isLogReg: logRegFlag,
-    isAuthenticated: alreadyLoggedFlag,
-    callType: 'login',
-    user: user,
+    isAuthenticated: res.locals.userAuth,
+    user: res.locals.user,
   });
 };
 
@@ -64,6 +47,11 @@ exports.register = async (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
+  if (res.locals.userAuth) {
+    return res.status(400).json({
+      message: "Already logged!",
+    });
+  }
   const user = new User({
     username: req.body.username,
     password: req.body.password,

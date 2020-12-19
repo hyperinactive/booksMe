@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
   // search params object - provide to request body
-    // -------------------------------
+  // -------------------------------
   globals = {
     loadedBooks: 0,
     rate: 8,
     isEmpty: false,
     sort: -1,
     search: '',
-  }
+  };
 
   // hard reset
   const resetSearchParams = () => {
@@ -16,9 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     globals.isEmpty = false;
     globals.sort = -1;
     globals.search = '';
-  }
+  };
   // -------------------------------
-
 
   // Intersect Observer - if the footer is intersecting try and load more data
   // -------------------------------
@@ -39,8 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
   observer.observe(document.querySelector('footer'));
   // -------------------------------
 
-  // search button event 
-  $('#search-btn').click(() => {
+  const search = () => {
     console.log('sanity check - click');
 
     // reset the globals and set the input to the search key
@@ -61,9 +59,21 @@ document.addEventListener('DOMContentLoaded', function () {
       $('footer').removeClass('footer-hack');
     }, 200);
 
-
     // stop uncommenting this, the observer will call it automatically when the wrapper gets emptied
     // loadBooks()
+  };
+
+  // search button event
+  // invoke search() if the button is clicked or enter pressed
+  $('#search-btn').click(() => {
+    search();
+  });
+
+  $('#search-input').keypress((e) => {
+    if (e.which == 13) {
+      search();
+      return false;
+    }
   });
 
   const loadBooks = () => {
@@ -124,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
             </form>`;
             $('.grid-container').append(bookItem);
-          globals.loadedBooks++;
+            globals.loadedBooks++;
           });
           if (data.empty === true) {
             globals.isEmpty = true;
