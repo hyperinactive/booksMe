@@ -1,12 +1,19 @@
 #review-wrapper {
   width: 100%;
-  margin: auto;
-  padding: 10rem 35rem;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  margin: 0;
+  padding: 0 10rem;
 }
 
-#review-wrapper h2 {
+#title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-container {
+  padding: 8rem 20%;
+}
+
+#review-wrapper .flex-container h2 {
   cursor: pointer;
+  margin-right: 1rem;
 }

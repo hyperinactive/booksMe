@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
       // get the current site url and append the bookAPI route
       const location = window.location.href;
       const tmp = location.split('/');
-      // console.log(tmp);
       const url = tmp[0] + '//' + tmp[2] + '/reviews/' + tmp[4];
 
       // console.log(`URL: ${url}`);

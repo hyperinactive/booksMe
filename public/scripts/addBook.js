@@ -8,7 +8,7 @@ $(document).ready(() => {
     } else {
       i = true;
       $('#add-book').show();
-      $('#add-book-button').html('Maybe not');
+      $('#add-book-button').html('Maybe not..');
       $('.empty-me').val('');
     }
   });

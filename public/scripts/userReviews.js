@@ -1,6 +1,5 @@
 $(document).ready(() => {
-	console.log('Something');
-
+  console.log('Sanity check');
 	$('.deletion-btn').on('click', (e) => {
 
 		if (e.target.innerHTML === 'You sure?') {
@@ -37,10 +36,5 @@ $(document).ready(() => {
 		e.target.style.display = 'none';
 		e.target.parentElement.children[3].innerHTML = "Delete";
 		e.target.parentElement.children[5].style.display = 'inline-block';
-	});
-
-	$('.update-btn').on('click', (e) => {
-		console.log('You want to update me, I knew it');
-		console.log(e.target.name + ' says: Why don\'t you like me?');
 	});
 });

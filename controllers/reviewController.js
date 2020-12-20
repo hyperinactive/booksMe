@@ -69,7 +69,7 @@ exports.createReview = async (req, res, next) => {
   } else {
     console.log('Only registered users can enter data');
   }
-  res.status(302).redirect(`user/${res.locals.user._id}`);
+  res.status(302).redirect(`books/${req.body.book_id}`);
 };
 
 // todo - upon deletion, update the book stats
@@ -96,5 +96,42 @@ exports.deleteReview = async (req, res, next) => {
       res.status(500).json(error);
     }
   };
+};
 
+exports.updateReview = async (req, res, next) => {
+  if (res.locals.userAuth) {
+    try {
+      // console.log(req.body);
+
+      const originalReview = await Review.findById(req.params.reviewID);
+      Book.findOne({_id: originalReview.book._id}, (err, fBook) => {
+        if (err) {
+         console.log(err);
+        } else {
+          if (fBook) {
+            Review.findOne({ _id: req.params.reviewID }, (err, fReview) => {
+              if (err) {
+                console.log(err);
+              } else {
+                if (fReview) {
+                  fReview.rev = req.body.review;
+                  fReview.rating = Number(req.body.rating);
+                  fReview.save();
+                }
+              }
+            });
+            fBook.reviewPoints -= Number(originalReview.rating);
+            fBook.reviewPoints += Number(req.body.rating);
+            fBook.averageRating = fBook.reviewPoints / fBook.numberOfReviews;
+            fBook.save();
+          }
+       }
+      });
+
+      res.status(200).json({ message: 'worked' });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
+  }
 };
