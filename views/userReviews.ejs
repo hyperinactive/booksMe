@@ -19,8 +19,8 @@
       formattedTimestampString = `${date}/${month}/${year}`;
       %> 
 
-    <div class="review" name="<%= review._id %>">
-      <h2><%= review.book.title %> - [ <%= review.rating %> ]</h2>
+    <form action="/books/<%= review.book._id %>" method="GET" class="review" name="<%= review._id %>">
+      <h2 onClick="javascript:this.parentNode.submit();"><%= review.book.title %> - [ <%= review.rating %> ]</h2>
 	  <% if (review.rev.length >= 100) { %>
 	  <% let str = `${review.rev.substr(0,99)} ...`; %>
       <p><%= str %></p>
@@ -33,7 +33,7 @@
     <button class="btn btn-dark cancel-btn" style="display: none;">X</button>
     <button class="btn btn-dark update-btn">Update</button>
 
-    </div>
+      </form>
     <% }); %>
   </div>
 </div>

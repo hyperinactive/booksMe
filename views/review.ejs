@@ -13,7 +13,11 @@
   <%- include('partials/navbar') %>
 
   <div id="review-wrapper">
-    <h2><%= review.book.title %></h2>
+
+    <form action="/books/<%= review.book._id %>" method="GET">
+      <h2 onClick="javascript:this.parentNode.submit();"><%= review.book.title %></h2>
+    </form>
+
     <hr>
     <p><b>review</b>: <%= review.rev %></p>
     <p><b>rating</b>: <%= review.rating %></p>

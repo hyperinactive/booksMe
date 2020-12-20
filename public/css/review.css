@@ -6,3 +6,7 @@
   flex-direction: column;
   align-content: center;
 }
+
+#review-wrapper h2 {
+  cursor: pointer;
+}
