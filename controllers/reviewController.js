@@ -26,8 +26,13 @@ exports.renderReview = async (req, res, next) => {
   try {
     const review = await Review.findOne({ _id: req.params.reviewID });
 
+    let ownership;
+    // quick and dirty
+    review.user === res.locals.user.username ? ownership = true : ownership = false;
+
     res.status(200).render('review', {
       review: review,
+      ownership: ownership,
       isAuthenticated: res.locals.userAuth,
       user: res.locals.user,
     });

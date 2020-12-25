@@ -23,7 +23,9 @@
         </form>
         <!-- don't want to install font-awesome package -->
         <!-- <button id="edit-btn" class="btn btn-dark">Edit <i class="fa fa-pencil-square-o"></i></button> -->
-        <button id="edit-btn" class="btn btn-dark">Edit, now!</button>
+        <% if (ownership) { %> 
+          <button id="edit-btn" class="btn btn-dark">Edit, now!</button>
+        <% } %>
       </div>
       
       
