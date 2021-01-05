@@ -3,8 +3,8 @@ module.exports = (req, res, next) => {
     res.locals.userAuth = true;
     res.locals.user = req.user;
   } else {
-	res.locals.userAuth = false;
-	res.locals.user = null;
+    res.locals.userAuth = false;
+    res.locals.user = null;
   }
   next();
 };

@@ -2,11 +2,13 @@ const Review = require('../models/reviewModel').Review;
 const Book = require('../models/bookModel').Book;
 
 
+// not the best way of doing things
+// maybe move this into the controller
 exports.getReviewsSingleBook = async (req, res, next) => {
   // to search nested stuff, "field.nested_field" : some_search_parameter
   const numberOfElements = await Review.find({'book._id': req.params.bookID}).countDocuments(function (err, count) {
     if (err) {
-      res.status(500).json(err)
+      res.status(500).json(err);
     }
   });
 

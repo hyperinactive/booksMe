@@ -23,28 +23,33 @@ exports.renderReviews = async (req, res, next) => {
 };
 
 exports.renderReview = async (req, res, next) => {
-  try {
-    const review = await Review.findOne({ _id: req.params.reviewID });
+  Review.findOne({ _id: req.params.reviewID }, (err, fReview) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
 
     let ownership;
     // quick and dirty
-    review.user === res.locals.user.username ? ownership = true : ownership = false;
+    if (res.locals.user === null) {
+      ownership = false;
+    } else {
+      fReview.user === res.locals.user.username
+        ? (ownership = true)
+        : (ownership = false);
+    }
 
     res.status(200).render('review', {
-      review: review,
+      review: fReview,
       ownership: ownership,
       isAuthenticated: res.locals.userAuth,
       user: res.locals.user,
     });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json(error);
-  }
+  });
 };
 
 exports.createReview = async (req, res, next) => {
   if (res.locals.userAuth) {
-
     const review = new Review({
       rev: req.body.review,
       rating: req.body.rating,
@@ -63,7 +68,8 @@ exports.createReview = async (req, res, next) => {
           review.book = foundBook;
           foundBook.numberOfReviews++;
           foundBook.reviewPoints += review.rating;
-          foundBook.averageRating = foundBook.reviewPoints / foundBook.numberOfReviews;
+          foundBook.averageRating =
+            foundBook.reviewPoints / foundBook.numberOfReviews;
           foundBook.save();
           review.save();
         } else {
@@ -80,7 +86,6 @@ exports.createReview = async (req, res, next) => {
 // todo - upon deletion, update the book stats
 exports.deleteReview = async (req, res, next) => {
   if (res.locals.userAuth) {
-    
     try {
       Review.findOneAndDelete({ id: req.params.id }, (err, fReview) => {
         if (fReview) {
@@ -89,7 +94,7 @@ exports.deleteReview = async (req, res, next) => {
               fBook.reviewPoints -= fReview.rating;
               fBook.numberOfReviews--;
               fBook.averageRating = fBook.reviewPoints / fBook.numberOfReviews;
-              fBook.save()
+              fBook.save();
 
               res.status(200).json({ fReview: fReview, fBook: fBook });
             }
@@ -100,7 +105,7 @@ exports.deleteReview = async (req, res, next) => {
       console.log(error);
       res.status(500).json(error);
     }
-  };
+  }
 };
 
 exports.updateReview = async (req, res, next) => {
@@ -109,9 +114,9 @@ exports.updateReview = async (req, res, next) => {
       // console.log(req.body);
 
       const originalReview = await Review.findById(req.params.reviewID);
-      Book.findOne({_id: originalReview.book._id}, (err, fBook) => {
+      Book.findOne({ _id: originalReview.book._id }, (err, fBook) => {
         if (err) {
-         console.log(err);
+          console.log(err);
         } else {
           if (fBook) {
             Review.findOne({ _id: req.params.reviewID }, (err, fReview) => {
@@ -130,7 +135,7 @@ exports.updateReview = async (req, res, next) => {
             fBook.averageRating = fBook.reviewPoints / fBook.numberOfReviews;
             fBook.save();
           }
-       }
+        }
       });
 
       res.status(200).json({ message: 'worked' });

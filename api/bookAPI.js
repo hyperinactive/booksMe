@@ -1,6 +1,7 @@
 const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
 
+// overloading the controller function didn't work, so this is a separate file...
 exports.getBooks = async (req, res, next) => {
   // you're not making this easy, mongoose... just give me the count of stuff
   const searchParam = new RegExp(req.body.search, 'i');
