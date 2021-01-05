@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 
 const app = express();
 
@@ -16,11 +17,11 @@ const app = express();
 // ok, so the default middleware is pointing to the public folder as the default path to static stuff
 // but if called from another location which is not root
 // it won't grant access, and a new middleware is needed with the provided path for the route calling
-app.use(express.static('public'));
-app.use('/user', express.static('public'));
-app.use('/user/:userID', express.static('public'));
-app.use('/books/:bookID', express.static('public'));
-app.use('/reviews/:reviewID', express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/user', express.static(path.join(__dirname, 'public')));
+app.use('/user/:userID', express.static(path.join(__dirname, 'public')));
+app.use('/books/:bookID', express.static(path.join(__dirname, 'public')));
+app.use('/reviews/:reviewID', express.static(path.join(__dirname, 'public')));
 
 
 app.set('view engine', 'ejs');

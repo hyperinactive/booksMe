@@ -21,71 +21,79 @@
   <body>
     <%- include('partials/navbar') %>
 
-    <div id="main-background">
-      <!-- carousel -->
-      <div
-        id="sliding-text-carousel"
-        class="carousel slide"
-        data-ride="carousel"
-        data-interval="6000"
-      >
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="quote d-block w-100" atl="First slide">
-              <p>
-                “He who seeks does not find, but he who does not seek will be
-                found.”
-              </p>
-              <p class="author">Franz Kafka</p>
+    <!-- main section - carousel -->
+    <section id="carousel">
+      <div id="main-background">
+        <div
+          id="sliding-text-carousel"
+          class="carousel slide"
+          data-ride="carousel"
+          data-interval="6000"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="quote d-block w-100" atl="First slide">
+                <p>
+                  “He who seeks does not find, but he who does not seek will be
+                  found.”
+                </p>
+                <p class="author">Franz Kafka</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="quote d-block w-100" atl="Second slide">
+                <p>“The scariest moment is always just before you start.”</p>
+                <p class="author">Stephen King</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="quote d-block w-100" atl="Third slide">
+                <p>
+                  “Kids, just because I don’t care doesn’t mean I’m not
+                  listening."
+                </p>
+                <p class="author">Homer Simpson</p>
+              </div>
             </div>
           </div>
-          <div class="carousel-item">
-            <div class="quote d-block w-100" atl="Second slide">
-              <p>“The scariest moment is always just before you start.”</p>
-              <p class="author">Stephen King</p>
-            </div>
+          <div>
+            <a
+              id="cta-btn"
+              class="btn btn-danger btn-lg b"
+              href="/books"
+              role="button"
+              >Check out them books</a
+            >
           </div>
-          <div class="carousel-item">
-            <div class="quote d-block w-100" atl="Third slide">
-              <p>
-                “Kids, you tried your best and you failed miserably. The lesson
-                is, never try."
-              </p>
-              <p class="author">Homer Simpson</p>
-            </div>
-          </div>
-        </div>
-        <div class="main-books-btn">
-          <a class="btn btn-danger btn-lg b" href="/books" role="button"
-            >Check out them books</a
-          >
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- call for action -->
-    <div class="jumbotron centered">
-      <div class="container">
-        <figure>
-          <img
-            class="mb-4 figure-img img-fluid rounded"
-            src="images/logo.jpg"
-            width="288"
-            height="288"
-          />
-          <figcaption class="figure-caption">
-            artwork by Kyoung Hwan Kim
-          </figcaption>
-        </figure>
-        <div>
-          <h1 class="display-3">Books: <i>ME</i></h1>
-          <p class="lead">Gimme your books!</p>
+    <!-- call to action - jumbotron -->
+    <section id="jumbotron-section">
+      <div class="jumbotron centered">
+        <div class="container">
+          <figure>
+            <img
+              class="mb-4 figure-img img-fluid rounded"
+              src="images/logo.jpg"
+              width="288"
+              height="288"
+            />
+            <figcaption class="figure-caption">
+              artwork by Kyoung Hwan Kim
+            </figcaption>
+          </figure>
+          <div>
+            <h1 class="display-3">Books: <i>ME</i></h1>
+            <p class="lead">Gimme your books!</p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- breaker div -->
-    <div id="breaker">
+    <section id="breaker">
       <div>
         <a class="btn btn-light btn-lg b" href="/register" role="button"
           >Register</a
@@ -94,12 +102,13 @@
       </div>
       <div>
         <a class="btn btn-danger btn-lg b" href="/books" role="button">Books</a>
-        <a class="btn btn-light btn-lg b" href="/reviews" role="button">Reviews</a>
+        <a class="btn btn-light btn-lg b" href="/reviews" role="button"
+          >Reviews</a
+        >
       </div>
-    </div>
+    </section>
 
     <div id="detail-background" class="parallax">
-
       <div class="home-grid">
         <div class="promo-book-desc-background">
           <p class="promo-book-description">
@@ -120,12 +129,38 @@
             morbi enim nunc faucibus. Felis eget velit aliquet sagittis. Turpis
             massa tincidunt dui ut ornare lectus sit amet est.
           </p>
-          <a class="btn btn-danger btn-lg b check-out-btn" href="/books/5fce5ffb57c0dd0c880a408e/">Check me out!</a>
+          <a
+            class="btn btn-danger btn-lg b check-out-btn"
+            href="/books/5fce5ffb57c0dd0c880a408e/"
+            >Check me out!</a
+          >
         </div>
-        <img class="promo-book" src="/uploads/1607360507308HKN2a.jpg" alt="promo-cover" />
+        <img
+          class="promo-book"
+          src="/uploads/1607360507308HKN2a.jpg"
+          alt="promo-cover"
+        />
       </div>
     </div>
 
-    <%- include('partials/footer') %>
+    <footer id="footer">
+      <!-- todo - optional content -->
+    </footer>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

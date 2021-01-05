@@ -17,9 +17,9 @@
 <% const pathToCover = '../' +  book.coverImage.replace(/\\/g, '/'); %>
 
   <div class="book-card-wrapper">
-    <div class="cover" style="background: url(<%=pathToCover%>) no-repeat center center; background-size: cover;">
-      </div>
-      <div class="info-wrapper">
+    <div id="flex-container">
+      <div class="cover flex-item" style="background: url(<%=pathToCover%>) no-repeat center center; background-size: cover;"></div>
+      <div class="info-wrapper flex-item">
 
         <div class="info-group">
           <div class="title"><%= book.title %></div>        
@@ -37,6 +37,8 @@
         </div>
 
       </div>
+    </div>
+    
     </div>
     <div class="info-group desc">
       <div class="description"><%= book.description %></div>
