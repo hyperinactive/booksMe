@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   let loadedReviews = 0;
-  const rate = 16;
+  const rate = 8;
   let isEmpty = false;
 
   options = {

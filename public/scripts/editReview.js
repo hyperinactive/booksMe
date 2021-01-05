@@ -18,12 +18,12 @@ $(document).ready(() => {
   
   $('#confirm-edit-btn').on('click', () => {
 
+    // correct url path
     const location = window.location.href;
     const tmp = location.split('/');
     const url = tmp[0] + '//' + tmp[2] + '/reviews/' + tmp[4];
 
-    console.log(url);
-
+    // edit info
     const reviewID = $('[name="reviewID"]').val();
     const review = $('[name="reviewEdit"]').val();
     const rating = $('[name="ratingEdit"]').val();
@@ -34,8 +34,6 @@ $(document).ready(() => {
       rating: rating,
     };
 
-    console.log(data);
-
     fetch(url, {
       method: 'PATCH',
       headers: {
@@ -45,8 +43,7 @@ $(document).ready(() => {
     }).then(response => {
       response.json();
     }).then((data) => {
-      console.log(data);
-      // window.location.reload();
+      window.location.reload();
     });
 
   });

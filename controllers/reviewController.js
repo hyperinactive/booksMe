@@ -57,7 +57,7 @@ exports.createReview = async (req, res, next) => {
       timestamp: Date.now(),
     });
 
-    console.log(req.body);
+    // console.log(req.body);
 
     Book.findOne({ _id: req.body.book_id }, (err, foundBook) => {
       if (err) {
