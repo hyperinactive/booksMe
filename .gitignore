@@ -1,6 +1,9 @@
 # Preferences
 .DS_Store
 
+# TMP
+coverPath.js
+
 # VS Code
 .vscode
 

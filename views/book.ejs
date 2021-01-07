@@ -14,11 +14,16 @@
 <%- include('partials/navbar') %>
 
 <!-- ugh, I'm afraid it wouldn't work any other way -->
-<% const pathToCover = '../' +  book.coverImage.replace(/\\/g, '/'); %>
+<% const pathToCover = `books/images/${book.coverImage}` %>
+
+<!-- TODO -->
+<!-- think of a better solution -->
+<!-- hard-coded for now, but works -->
+<% const path = 'http://localhost:3000/' + book.coverImage %> 
 
   <div class="book-card-wrapper">
     <div id="flex-container">
-      <div class="cover flex-item" style="background: url(<%=pathToCover%>) no-repeat center center; background-size: cover;"></div>
+      <div class="cover flex-item" style="background: url(<%=path%>) no-repeat center center; background-size: cover;"></div>
       <div class="info-wrapper flex-item">
 
         <div class="info-group">
@@ -87,6 +92,7 @@
 
 <script type="text/javascript" src="scripts/addReview.js" ></script>
 <script type="text/javascript" src="scripts/loadReviews.js"></script>
+<script type="text/javascript" src="scripts/coverPath.js"></script>
 
 </body>
 </html>

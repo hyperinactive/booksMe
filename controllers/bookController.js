@@ -1,7 +1,7 @@
 const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
-const gfs = require('../app').gfs;
-const gridFSBucket = require('../app').gridFSBucket;
+const GridFSStream = require("gridfs-stream");
+const mongoose = require('mongoose');
 
 exports.renderBooks = async (req, res, next) => {
   res.render('books', {
@@ -11,7 +11,11 @@ exports.renderBooks = async (req, res, next) => {
 };
 
 exports.getCover = async (req, res, next) => {
-  
+  // set up the gridfs
+  let  gfs = GridFSStream(mongoose.connection.db, mongoose.mongo);
+  let gridFSBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: "uploads" });
+  gfs.collection("uploads");
+
   gfs.files.findOne(
     { _id: mongoose.Types.ObjectId(req.params.imageID) },
     (err, file) => {
@@ -38,6 +42,9 @@ exports.createBook = async (req, res, next) => {
   if (res.locals.userAuth) {
     let coverPath;
     req.file === undefined ? coverPath = 'public/images/default_cover.jpg' : coverPath = req.file.path;
+
+
+    coverPath = `books/images/${req.file.id}`;
 
     let book = new Book({
       title: req.body.title,

@@ -109,10 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
           // <button class="btn-danger page-btn" type="submit">Page</button>
 
           data.data.forEach((book) => {
-            const pathToCover = book.coverImage
-              .replace(/\\/g, '/')
-              .replace('public/', '');
-
+            const pathToCover = `${book.coverImage}`;
             const bookItem = `
             <form action="/books/${book._id}" method="get">
               <div class="grid-item" onClick="javascript:this.parentNode.submit();">

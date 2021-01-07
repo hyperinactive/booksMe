@@ -7,7 +7,6 @@ const passport = require('passport');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
-const GridFSStream = require("gridfs-stream");
 
 const app = express();
 
@@ -50,28 +49,20 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// Init GFS
-let gfs;
-let gridFSBucket;
-
 const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}/${process.env.DB_REPLICA_NAME}?retryWrites=true&w=majority`;
 
 // set mongoose flags
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useCreateIndex", true);
-mongoose.set("useUnifiedTopology", true);
-
+// useUnifiedTopology still warns even when set to true??
+const mongooseFlags = {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+}
 // connect to the database
-mongoose.connect(mongoURI);
+mongoose.connect(mongoURI, mongooseFlags);
 
 mongoose.connection.on('connected', () => {
   console.log('connected to mongodb, oh hell yea');
-
-  // set up the gridfs
-  gfs = GridFSStream(mongoose.connection.db, mongoose.mongo);
-  gridFSBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: "uploads" });
-  gfs.collection("uploads");
 });
 mongoose.connection.on('error', () => {
   console.log('error connecting to mongodb, oh hell yea');
@@ -93,13 +84,11 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 // ROUTE HANDLING
 // ------------------------------------------------------
 
 // landing page
 app.get('/', authenticationMiddleware, (req, res) => {
-  console.log(mongoose.connection);
   res.render('home', { isAuthenticated: res.locals.userAuth, user: res.locals.user});
 });
 
@@ -134,8 +123,4 @@ app.use((req, res, next) => {
   });
 });
 
-module.exports = {
-  app: app,
-  gfs: gfs,
-  gridFSBucket: gridFSBucket,
-};
+module.exports = app;
