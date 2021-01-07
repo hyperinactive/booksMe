@@ -44,7 +44,7 @@ exports.createBook = async (req, res, next) => {
     req.file === undefined ? coverPath = 'public/images/default_cover.jpg' : coverPath = req.file.path;
 
 
-    coverPath = `books/images/${req.file.id}`;
+    coverPath = req.file.id;
 
     let book = new Book({
       title: req.body.title,
