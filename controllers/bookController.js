@@ -1,11 +1,37 @@
 const Author = require('../models/authorModel').Author;
 const Book = require('../models/bookModel').Book;
+const gfs = require('../app').gfs;
+const gridFSBucket = require('../app').gridFSBucket;
 
 exports.renderBooks = async (req, res, next) => {
   res.render('books', {
     isAuthenticated: res.locals.userAuth,
     user: res.locals.user,
   });
+};
+
+exports.getCover = async (req, res, next) => {
+  
+  gfs.files.findOne(
+    { _id: mongoose.Types.ObjectId(req.params.imageID) },
+    (err, file) => {
+      if (!file || file.length === 0) {
+        return res.status(404).json({ err: "No file found" });
+      }
+
+      if (
+        file.contentType === "image/jpeg" ||
+        file.contentType === "image/jpg" ||
+        file.contentType === "image/png"
+      ) {
+
+        const readStream = gridFSBucket.openDownloadStream(file._id);
+        readStream.pipe(res);
+      } else {
+        res.status(404).json({ err: "Not an image" });
+      }
+    },
+  );
 };
 
 exports.createBook = async (req, res, next) => {

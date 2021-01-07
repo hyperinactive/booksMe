@@ -7,6 +7,7 @@ const passport = require('passport');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
+const GridFSStream = require("gridfs-stream");
 
 const app = express();
 
@@ -49,20 +50,28 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// connect to the database
-mongoose.connect(
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
 
-// deprecated error fix
-mongoose.set('useCreateIndex', true);
+// Init GFS
+let gfs;
+let gridFSBucket;
+
+const mongoURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}${process.env.DB_HOST}/${process.env.DB_REPLICA_NAME}?retryWrites=true&w=majority`;
+
+// set mongoose flags
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useCreateIndex", true);
+mongoose.set("useUnifiedTopology", true);
+
+// connect to the database
+mongoose.connect(mongoURI);
 
 mongoose.connection.on('connected', () => {
-  console.log('connected to mongodb oh hell yea');
+  console.log('connected to mongodb, oh hell yea');
+
+  // set up the gridfs
+  gfs = GridFSStream(mongoose.connection.db, mongoose.mongo);
+  gridFSBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: "uploads" });
+  gfs.collection("uploads");
 });
 mongoose.connection.on('error', () => {
   console.log('error connecting to mongodb, oh hell yea');
@@ -90,6 +99,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // landing page
 app.get('/', authenticationMiddleware, (req, res) => {
+  console.log(mongoose.connection);
   res.render('home', { isAuthenticated: res.locals.userAuth, user: res.locals.user});
 });
 
@@ -102,6 +112,7 @@ app.use('/reviews', authenticationMiddleware, reviewRoutes);
 // handle books
 app.use('/books', authenticationMiddleware, bookRoutes);
 
+// this shouldn't be here, but gets the job done :/
 app.post('/bookAPI', BookAPI.getBooks);
 
 
@@ -123,4 +134,8 @@ app.use((req, res, next) => {
   });
 });
 
-module.exports = app;
+module.exports = {
+  app: app,
+  gfs: gfs,
+  gridFSBucket: gridFSBucket,
+};
