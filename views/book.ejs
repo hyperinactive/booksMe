@@ -22,11 +22,13 @@
 <!-- TODO -->
 <!-- think of a better solution -->
 <!-- hard-coded for now, but works -->
-<% const path = 'http://localhost:3000/' +  'books/images/' + book.coverImage %> 
+<!-- <% const path = 'http://localhost:3000/' +  'books/images/' + book.coverImage %>  -->
+<% const pathDeploy = 'https://books-me.herokuapp.com/' +  'books/images/' + book.coverImage %>
+
 
   <div class="book-card-wrapper">
     <div id="flex-container">
-      <div class="cover flex-item" style="background: url(<%=path%>) no-repeat center center; background-size: cover;"></div>
+      <div class="cover flex-item" style="background: url(<%=pathDeploy%>) no-repeat center center; background-size: cover;"></div>
       <div class="info-wrapper flex-item">
 
         <div class="info-group">
