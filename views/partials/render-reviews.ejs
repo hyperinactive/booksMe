@@ -7,12 +7,13 @@
 
         <form class="review" action="/reviews/<%= review._id %>" method="get">
           <div onClick="javascript:this.parentNode.submit();">
-            <h2><%= review.book.title %> - [ <%= review.rating %> ]</h2>
+            <h2><%= review.book.title %></h2>
             <!--If the review is too long ~20 words or less please-->
             <% if (review.rev.length >= 100) {  %>
               <% let str = `${review.rev.substr(0,99)} ...`; %>
               <p><%=str%></p>
             <% } else { %>
+            <h4 class="rating">[ <%= review.rating %> ]</h4>
             <p><%=review.rev%></p>
             <% } %>
             <div>by <%=review.user%></div>

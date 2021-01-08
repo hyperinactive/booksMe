@@ -41,10 +41,19 @@ exports.getCover = async (req, res, next) => {
 exports.createBook = async (req, res, next) => {
   if (res.locals.userAuth) {
     let coverPath;
-    req.file === undefined ? coverPath = 'public/images/default_cover.jpg' : coverPath = req.file.path;
+    // req.file === undefined ? coverPath = 'public/images/default_cover.jpg' : coverPath = req.file.path;
+    // default image, ~ not to be deleted ~
 
+    // --------------------------
+    // logo
+    // req.file === undefined ? coverPath = '5ff7a7e6df52ac00043bea1c' : coverPath = req.file.id;
+    // --------------------------
 
-    coverPath = req.file.id;
+    // default
+    req.file === undefined ? coverPath = '5ff86e6f9237580004a1fda0' : coverPath = req.file.id;
+
+    // req.file === undefined ? coverPath = '5ff7a7e6df52ac00043bea1c' : coverPath = req.file.id;
+    // coverPath = req.file.id;
 
     let book = new Book({
       title: req.body.title,
