@@ -36,13 +36,7 @@ exports.register = async (req, res, next) => {
                 res.status(301).redirect('/register');
               } else {
                 passport.authenticate('local')(req, res, () => {
-                  // res.status(301).redirect('/books');
-
-                  res.status(200).render('books', {
-                    isAuthenticated: res.locals.userAuth,
-                    user: res.locals.user,
-                  });
-
+                  res.status(301).redirect('/books');
                 });
               }
             },
@@ -70,11 +64,7 @@ exports.login = (req, res, next) => {
     } else {
 
       passport.authenticate('local')(req, res, () => {
-        // res.status(301).redirect('/books');
-        res.status(200).render('books', {
-          isAuthenticated: res.locals.userAuth,
-          user: res.locals.user,
-        });
+        res.status(301).redirect('/books');        
       });
 
     }
@@ -93,9 +83,5 @@ exports.userReviews = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
   req.logout();
-  // res.status(301).redirect('/');
-  res.status(200).render('books', {
-    isAuthenticated: res.locals.userAuth,
-    user: res.locals.user,
-  });
+  res.status(301).redirect('/books');
 };
