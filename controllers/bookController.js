@@ -49,7 +49,11 @@ exports.createBook = async (req, res, next) => {
     // req.file === undefined ? coverPath = '5ff7a7e6df52ac00043bea1c' : coverPath = req.file.id;
     // --------------------------
 
+    // legacy default
+    // req.file === undefined ? coverPath = '5ff86e6f9237580004a1fda0' : coverPath = req.file.id;
+
     // default
+    // 5ffcc6410e09330004bc4a2f
     req.file === undefined ? coverPath = '5ff86e6f9237580004a1fda0' : coverPath = req.file.id;
 
     // req.file === undefined ? coverPath = '5ff7a7e6df52ac00043bea1c' : coverPath = req.file.id;

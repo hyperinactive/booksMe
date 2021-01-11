@@ -40,9 +40,9 @@ exports.renderReview = async (req, res, next) => {
       console.log(fReview.user._id);
       console.log(res.locals.user._id);
 
-      fReview.user._id === res.locals.user._id
-        ? (ownership = false)
-        : (ownership = true);
+      String(fReview.user._id) === String(res.locals.user._id)
+        ? (ownership = true)
+        : (ownership = false);
     }
 
     console.log(ownership);
