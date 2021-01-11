@@ -4,7 +4,7 @@ const GridFSStream = require("gridfs-stream");
 const mongoose = require('mongoose');
 
 exports.renderBooks = async (req, res, next) => {
-  res.render('books', {
+  res.status(200).render('books', {
     isAuthenticated: res.locals.userAuth,
     user: res.locals.user,
   });

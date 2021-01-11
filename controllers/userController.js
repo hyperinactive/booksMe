@@ -36,21 +36,27 @@ exports.register = async (req, res, next) => {
                 res.status(301).redirect('/register');
               } else {
                 passport.authenticate('local')(req, res, () => {
-                  res.status(301).redirect('/books');
+                  // res.status(301).redirect('/books');
+
+                  res.status(200).render('books', {
+                    isAuthenticated: res.locals.userAuth,
+                    user: res.locals.user,
+                  });
+
                 });
               }
-            }
+            },
           );
         }
       }
-    }
+    },
   );
 };
 
 exports.login = (req, res, next) => {
   if (res.locals.userAuth) {
     return res.status(400).json({
-      message: "Already logged!",
+      message: 'Already logged!',
     });
   }
   const user = new User({
@@ -62,15 +68,20 @@ exports.login = (req, res, next) => {
     if (err) {
       console.log(err);
     } else {
+
       passport.authenticate('local')(req, res, () => {
-        res.status(301).redirect('/books');
+        // res.status(301).redirect('/books');
+        res.status(200).render('books', {
+          isAuthenticated: res.locals.userAuth,
+          user: res.locals.user,
+        });
       });
+
     }
   });
 };
 
 exports.userReviews = async (req, res, next) => {
-
   const fReviews = await Review.find({ 'user._id': res.locals.user._id });
 
   res.status(200).render('userReviews', {
@@ -78,9 +89,13 @@ exports.userReviews = async (req, res, next) => {
     user: res.locals.user,
     reviews: fReviews,
   });
-}
+};
 
 exports.logout = async (req, res, next) => {
   req.logout();
-  res.status(301).redirect('/');
+  // res.status(301).redirect('/');
+  res.status(200).render('books', {
+    isAuthenticated: res.locals.userAuth,
+    user: res.locals.user,
+  });
 };

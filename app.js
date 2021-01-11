@@ -89,7 +89,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // landing page
 app.get('/', authenticationMiddleware, (req, res) => {
-  res.render('home', { isAuthenticated: res.locals.userAuth, user: res.locals.user});
+  res.status(200).render('home', { isAuthenticated: res.locals.userAuth, user: res.locals.user});
 });
 
 // handle user routes
