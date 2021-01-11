@@ -1,5 +1,7 @@
+const User = require('../models/userModel').User;
 const Book = require('../models/bookModel').Book;
 const Review = require('../models/reviewModel').Review;
+const mongoose = require('mongoose');
 
 exports.renderReviews = async (req, res, next) => {
   Review.find({}, (err, foundReviews) => {
@@ -32,12 +34,18 @@ exports.renderReview = async (req, res, next) => {
     let ownership;
     // quick and dirty
     if (res.locals.user === null) {
+      console.log('user is null');
       ownership = false;
     } else {
-      fReview.user === res.locals.user.username
-        ? (ownership = true)
-        : (ownership = false);
+      console.log(fReview.user._id);
+      console.log(res.locals.user._id);
+
+      fReview.user._id === res.locals.user._id
+        ? (ownership = false)
+        : (ownership = true);
     }
+
+    console.log(ownership);
 
     res.status(200).render('review', {
       review: fReview,
@@ -50,31 +58,38 @@ exports.renderReview = async (req, res, next) => {
 
 exports.createReview = async (req, res, next) => {
   if (res.locals.userAuth) {
-    const review = new Review({
-      rev: req.body.review,
-      rating: req.body.rating,
-      user: req.user.username,
-      timestamp: Date.now(),
-    });
-
-    // console.log(req.body);
-
-    Book.findOne({ _id: req.body.book_id }, (err, foundBook) => {
+    User.findOne({ _id: res.locals.user._id }, (err, fUser) => {
       if (err) {
-        // return res.status(500).json(err);
         console.log(err);
-      } else {
-        if (foundBook) {
-          review.book = foundBook;
-          foundBook.numberOfReviews++;
-          foundBook.reviewPoints += review.rating;
-          foundBook.averageRating =
-            foundBook.reviewPoints / foundBook.numberOfReviews;
-          foundBook.save();
-          review.save();
-        } else {
-          return res.status(404).send('No book found');
-        }
+        return res.status(500).json(err);
+      }
+      if (fUser) {
+        console.log(fUser);
+        const review = new Review({
+          rev: req.body.review,
+          rating: req.body.rating,
+          user: fUser,
+          timestamp: Date.now(),
+        });
+
+        Book.findOne({ _id: req.body.book_id }, (err, foundBook) => {
+          if (err) {
+            // return res.status(500).json(err);
+            console.log(err);
+          } else {
+            if (foundBook) {
+              review.book = foundBook;
+              foundBook.numberOfReviews++;
+              foundBook.reviewPoints += review.rating;
+              foundBook.averageRating =
+                foundBook.reviewPoints / foundBook.numberOfReviews;
+              foundBook.save();
+              review.save();
+            } else {
+              return res.status(404).send('No book found');
+            }
+          }
+        });
       }
     });
   } else {

@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
 
               <div class="review-stats rev">
-              <div class="user">${review.user}</div>
+              <div class="user">${review.user.username}</div>
               <div>${formattedTimestampString}</div>
               <div class="rating">${review.rating}</div>
               

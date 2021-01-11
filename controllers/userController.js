@@ -3,14 +3,14 @@ const User = require('../models/userModel').User;
 const Review = require('../models/reviewModel').Review;
 
 exports.renderRegister = async (req, res, next) => {
-  res.render('register', {
+  res.status(200).render('register', {
     isAuthenticated: res.locals.userAuth,
     user: res.locals.user,
   });
 };
 
 exports.renderLogin = async (req, res, next) => {
-  res.render('login', {
+  res.status(200).render('login', {
     isAuthenticated: res.locals.userAuth,
     user: res.locals.user,
   });
@@ -33,10 +33,10 @@ exports.register = async (req, res, next) => {
             (err, user) => {
               if (err) {
                 console.log(err);
-                res.redirect('/register');
+                res.status(301).redirect('/register');
               } else {
                 passport.authenticate('local')(req, res, () => {
-                  res.redirect('/books');
+                  res.status(301).redirect('/books');
                 });
               }
             }
@@ -63,7 +63,7 @@ exports.login = (req, res, next) => {
       console.log(err);
     } else {
       passport.authenticate('local')(req, res, () => {
-        res.redirect('/books');
+        res.status(301).redirect('/books');
       });
     }
   });
@@ -71,7 +71,7 @@ exports.login = (req, res, next) => {
 
 exports.userReviews = async (req, res, next) => {
 
-  const fReviews = await Review.find({ 'user._id': req.params.bookID });
+  const fReviews = await Review.find({ 'user._id': res.locals.user._id });
 
   res.status(200).render('userReviews', {
     isAuthenticated: res.locals.userAuth,
@@ -82,5 +82,5 @@ exports.userReviews = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
   req.logout();
-  res.redirect('/');
+  res.status(301).redirect('/');
 };

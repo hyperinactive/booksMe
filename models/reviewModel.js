@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-const bookModel = require('./bookModel');
-const bookSchema = bookModel.bookSchema;
+const bookModel = require('./bookModel').Book;
+const bookSchema = require('./bookModel').bookSchema;
+const userModel = require('./userModel').User;
+const userSchema = require('./userModel').userSchema;
 
 const reviewSchema = new mongoose.Schema({
   book: {
@@ -18,7 +20,7 @@ const reviewSchema = new mongoose.Schema({
     max: 5,
   },
   user: {
-    type: String,
+    type: userSchema,
     required: true,
   },
   timestamp: {
