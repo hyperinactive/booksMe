@@ -23,6 +23,7 @@
         <form action="/books/<%= review.book._id %>" method="GET">
           <h2 onClick="javascript:this.parentElement.submit();" style="display: inline-block;"><%= review.book.title %></h2>
         </form>
+        <!-- ownership -->
         <!-- don't want to install font-awesome package -->
         <!-- <button id="edit-btn" class="btn btn-dark">Edit <i class="fa fa-pencil-square-o"></i></button> -->
         <% if (ownership) { %> 
